@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp"
+    tools:context=".EventActivity">
+
+    <TextView
+        android:id="@+id/tv_place"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:text="Member"
+        android:textColor="#B765A6"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+
+    <EditText
+        android:id="@+id/edt_houseId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="HouseId"
+        android:imeOptions="actionNext"
+        android:singleLine="true"
+        android:textColor="#000"
+        android:textColorHint="#000"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/edt_memberName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="MemberName"
+        android:imeOptions="actionNext"
+        android:singleLine="true"
+        android:textColor="#000"
+        android:textColorHint="#000"
+        android:textSize="20sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_dateOfBirth"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:hint="Date"
+            style="@android:style/Widget.EditText"
+            android:imeOptions="actionNext"
+            android:singleLine="true"
+            android:textColor="#000"
+            android:textColorHint="#000"
+            android:textSize="20sp"
+
+            />
+
+        <ImageButton
+            android:id="@+id/btn_memberDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="#FFF0FF"
+            android:padding="5dp"
+            android:src="@drawable/ic_calendar" />
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/edt_age"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="Age"
+        android:imeOptions="actionNext"
+        android:singleLine="true"
+        android:textColor="#000"
+        android:textColorHint="#000"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/tv_gender"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="Gender"
+        android:imeOptions="actionNext"
+        style="@android:style/Widget.EditText"
+        android:singleLine="true"
+        android:textColor="#000"
+        android:textColorHint="#000"
+        android:textSize="20sp" />
+
+    <RadioGroup
+        android:id="@+id/radio_grp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radio_male"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Male"
+            android:textSize="20sp"
+
+            />
+
+        <RadioButton
+            android:id="@+id/radio_female"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Female"
+            android:textSize="20sp"
+
+            />
+    </RadioGroup>
+
+    <EditText
+        android:id="@+id/edt_contactNo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="ContactNo"
+        android:imeOptions="actionDone"
+        android:singleLine="true"
+        android:textColor="#000"
+        android:textColorHint="#000"
+        android:textSize="20sp" />
+
+
+    <android.widget.Button
+        android:id="@+id/btn_member"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:background="#B765A6"
+        android:padding="10dp"
+        android:text="Add Member"
+        android:textColor="#000"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <android.widget.Button
+        android:id="@+id/btn_delete_member"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:background="#B765A6"
+        android:padding="10dp"
+        android:text="Delete Member"
+        android:textColor="#000"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:visibility="gone"/>
+
+
+</LinearLayout>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFF0FF"
+    android:orientation="vertical"
+    android:padding="20dp"
+    tools:context=".MaintenanceMasterActivity">
+
+    <TextView
+        android:id="@+id/tv_hmaster"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:text="Maintenance Master"
+        android:textColor="#B765A6"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/edt_maintenanceAmount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="Maintenance Amount"
+        android:imeOptions="actionNext"
+        android:singleLine="true"
+        android:textColor="#000"
+        android:textColorHint="#000"
+        android:inputType="number"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/edt_penalty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="Penalty"
+        android:imeOptions="actionDone"
+        android:singleLine="true"
+        android:textColor="#000"
+        android:textColorHint="#000"
+        android:inputType="number"
+        android:textSize="20sp" />
+
+    <android.widget.Button
+        android:id="@+id/btn_addMaster"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:background="#B765A6"
+        android:padding="10dp"
+        android:text="Add Maintenance Master"
+        android:textColor="#000"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+</LinearLayout>

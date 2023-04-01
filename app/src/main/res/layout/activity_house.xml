@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFF0FF"
+    android:orientation="vertical"
+    android:padding="20dp"
+    tools:context=".HouseActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="House"
+        android:textColor="@color/purple_500"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/edt_House_Deets"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:drawableLeft="@drawable/ic_person"
+        android:drawablePadding="10dp"
+        android:hint="House Details"
+        android:imeOptions="actionNext"
+        android:padding="20dp"
+        android:singleLine="true"
+        android:textColorHint="#000"
+        android:textSize="20sp" />
+
+    <Spinner
+        android:id="@+id/spinner_users"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:textColor="#000"
+        android:textSize="20sp"
+        android:popupBackground="#FFF0FF"
+
+        />
+
+    <android.widget.Button
+        android:id="@+id/btn_addHouse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edt_House_Deets"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:background="#b765a6"
+        android:paddingHorizontal="20dp"
+        android:text="Add House"
+        android:textSize="20sp" />
+
+    <android.widget.Button
+        android:id="@+id/btn_delete_House"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:background="#B765A6"
+        android:padding="10dp"
+        android:visibility="gone"
+        android:text="Delete House"
+        android:textColor="#000"
+        android:textSize="20sp" />
+
+
+</LinearLayout>

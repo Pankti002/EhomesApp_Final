@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.e_society">
+
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.ESociety"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".display.FeedbackDisplayActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MaintenanceMasterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".userTableActivity"
+            android:exported="false" />
+        <activity
+            android:name=".display.UserDisplayActivity"
+            android:exported="false" />
+        <activity
+            android:name=".display.NonMemberDisplayActivity"
+            android:exported="false" />
+        <activity
+            android:name=".display.MemberDisplayActivity"
+            android:exported="false" />
+        <activity
+            android:name=".update.EventUpdateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".update.FeedbackUpdateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EventActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UserDashBoardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".display.EventDisplayActivity"
+            android:exported="false" />
+        <activity
+            android:name=".update.RoleUpdateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".update.NonMemberUpdateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".display.RoleDisplayActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MemberActivity"
+            android:exported="false" />
+        <activity
+            android:name=".display.StaffDisplayActivity"
+            android:exported="false" />
+        <activity
+            android:name=".NonMemberActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FeedbackActivity"
+            android:exported="false" />
+        <activity
+            android:name=".update.HouseUpdateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".update.UserUpdateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".update.MemberUpdateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".update.StaffUpdateAcivity"
+            android:exported="false" />
+        <activity
+            android:name=".update.PlaceUpdateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".display.PlaceDisplayActivity"
+            android:exported="false" />
+        <activity
+            android:name=".update.MaintenanceUpdateActivity"
+            android:exported="false" />
+
+        <service
+            android:name=".FirebaseMessageReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <activity
+            android:name=".SecurityDashboardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".display.HouseDisplayActivity"
+            android:exported="false" />
+        <activity
+            android:name=".display.MaintenanceDisplayActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UserActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RoleActivity"
+            android:exported="false" />
+        <activity
+            android:name=".HouseActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PlaceActivity"
+            android:exported="false" />
+        <activity
+            android:name=".StaffActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MaintenanceActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DashBoardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SignupActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFF0FF"
+        android:orientation="vertical"
+        android:padding="20dp"
+        tools:context=".StaffActivity">
+
+        <TextView
+            android:id="@+id/tv_main"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:inputType="text"
+            android:text="Staff"
+            android:textColor="#B765A6"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/et_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:hint="Staff Member Name"
+            android:imeOptions="actionNext"
+            android:inputType="text"
+            android:singleLine="true"
+            android:textColor="#000"
+            android:textColorHint="#000"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tv_type"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:text="Security"
+            android:imeOptions="actionNext"
+            android:padding="10dp"
+            android:textColor="#000"
+            android:textColorHint="#000"
+            android:textSize="20sp" />
+
+<!--        <Spinner-->
+<!--            android:id="@+id/spinner_type"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="30dp"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:textColor="#000"-->
+<!--            android:textSize="20sp"-->
+
+<!--            />-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/tv_entry"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:hint="Entry Time"
+                style="@android:style/Widget.EditText"
+                android:imeOptions="actionNext"
+                android:singleLine="true"
+                android:textColor="#000"
+                android:textColorHint="#000"
+                android:textSize="20sp" />
+
+            <ImageButton
+                android:id="@+id/btn_entry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="#FFF0FF"
+                android:padding="5dp"
+                android:src="@drawable/ic_time" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/tv_exit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@android:style/Widget.EditText"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:hint="Exit Time"
+                android:imeOptions="actionNext"
+                android:singleLine="true"
+                android:textColor="#000"
+                android:textColorHint="#000"
+                android:textSize="20sp"
+
+                />
+
+            <ImageButton
+                android:id="@+id/btn_exit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="#FFF0FF"
+                android:padding="5dp"
+                android:src="@drawable/ic_time" />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/et_contact"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:hint="Contact No"
+            android:imeOptions="actionNext"
+            android:inputType="phone"
+            android:singleLine="true"
+            android:textColor="#000"
+            android:textColorHint="#000"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/et_add"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:hint="Address"
+            android:imeOptions="actionNext"
+            android:inputType="text"
+            android:singleLine="true"
+            android:textColor="#000"
+            android:textColorHint="#000"
+            android:textSize="20sp" />
+
+
+        <EditText
+            android:id="@+id/et_agencyName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:hint="AgencyName"
+            android:imeOptions="actionNext"
+            android:inputType="text"
+            android:singleLine="true"
+            android:textColor="#000"
+            android:textColorHint="#000"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/et_agencyContact"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:hint="Agency Contact No"
+            android:imeOptions="actionDone"
+            android:inputType="phone"
+            android:singleLine="true"
+            android:textColor="#000"
+            android:textColorHint="#000"
+            android:textSize="20sp" />
+
+        <android.widget.Button
+            android:id="@+id/btn_staff"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:background="#B765A6"
+            android:padding="10dp"
+            android:text="Add Satff"
+            android:textColor="#000"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <android.widget.Button
+            android:id="@+id/btn_del_staff"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:background="#B765A6"
+            android:padding="10dp"
+            android:text="Delete Staff"
+            android:textColor="#000"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+    </LinearLayout>
+
+</ScrollView>

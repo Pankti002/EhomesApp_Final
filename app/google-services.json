@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "654760578029",
+    "project_id": "e-society-76b57",
+    "storage_bucket": "e-society-76b57.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:654760578029:android:4f06e0e986d1822e6cb5e4",
+        "android_client_info": {
+          "package_name": "com.e_society"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "654760578029-0fja2nt63obq5q35lbqqh3hu3ekapjgi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOIYXrvOftbia2638kbwXA4LpDFGF4OHE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "654760578029-0fja2nt63obq5q35lbqqh3hu3ekapjgi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

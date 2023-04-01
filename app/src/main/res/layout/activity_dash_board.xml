@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".DashBoardActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="#531455"
+        android:padding="20dp">
+
+        <ImageView
+            android:id="@+id/menuIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/ic_menu" />
+
+        <TextView
+            android:id="@+id/tv_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/menuIcon"
+            android:layout_marginTop="10dp"
+            android:text="Dashboard"
+            android:textColor="#fff"
+            android:textSize="30sp" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_image"
+            android:layout_width="80dp"
+            android:layout_height="84dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/enhomes_logo"
+            app:civ_border_color="#fff"
+            app:civ_border_width="2dp"
+            app:civ_circle_background_color="#fff" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="-30dp"
+        android:background="@drawable/purple_bg"
+        android:orientation="vertical">
+
+        <GridView
+            android:id='@+id/grid_view'
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:horizontalSpacing="20dp"
+            android:numColumns="2"
+            android:padding="10dp"
+            android:verticalSpacing="20dp" />
+    </LinearLayout>
+
+</LinearLayout>
