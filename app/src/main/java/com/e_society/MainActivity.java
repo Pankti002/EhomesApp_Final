@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
 
-                Intent i = new Intent(MainActivity.this, NonMemberActivity.class);
+                Intent i = new Intent(MainActivity.this, SignupActivity.class);
                 startActivity(i);
                 finish();
             }
