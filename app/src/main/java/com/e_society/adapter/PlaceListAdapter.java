@@ -45,12 +45,13 @@ public class PlaceListAdapter extends BaseAdapter {
     public View getView(int position, View view, ViewGroup parent) {
 
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        view = layoutInflater.inflate(R.layout.raw_list, null);
+        view = layoutInflater.inflate(R.layout.place_table, null);
 
-        TextView tvData = view.findViewById(R.id.tv_data);
+        TextView tvPlaceName = view.findViewById(R.id.tv_placeName);
+        TextView tvPlaceRent=view.findViewById(R.id.tv_Rent);
 
-        tvData.setText(placeLangModelArrayList.get(position).get_id() + " " +
-                placeLangModelArrayList.get(position).getPlaceName()+" "+placeLangModelArrayList.get(position).getRent());
+        tvPlaceName.setText(placeLangModelArrayList.get(position).getPlaceName());
+        tvPlaceRent.setText(placeLangModelArrayList.get(position).getRent());
 
         ImageView imgEdit = view.findViewById(R.id.img_edit);
         ImageView imgDelete = view.findViewById(R.id.img_delete);

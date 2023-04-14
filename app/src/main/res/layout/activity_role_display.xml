@@ -20,16 +20,73 @@
         android:textSize="30sp"
         android:textStyle="bold" />
 
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/horizontalScrollView"
+        android:layout_below="@id/tv_head">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:id="@+id/layout"
+            >
+
+            <TableLayout
+                android:id="@+id/table"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="1dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginBottom="0dp"
+                    android:paddingVertical="0dp"
+                    >
+
+                    <TextView
+                        android:id="@+id/tv_roleName"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:text="Role Name"
+                        android:gravity="center"
+                        android:layout_gravity="center_vertical"
+                        android:padding="5dp"
+                        android:background="@drawable/cell_shape"
+                        android:textColor="@color/black"
+                        android:textSize="20dp" />
+
+
+                    <TextView
+                        android:layout_width="120dp"
+                        android:layout_height="match_parent"
+                        android:text="Actions"
+                        android:textColor="@color/black"
+                        android:textSize="20dp"
+                        android:gravity="center"
+                        android:id="@+id/act"
+                        android:background="@drawable/cell_shape"
+                        android:padding="6dp" />
+
+                </TableRow>
+            </TableLayout>
+
     <ListView
         android:id="@+id/ls_listview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_head"
+        android:layout_below="@+id/table"
         android:layout_marginTop="10dp"
         android:divider="@android:color/transparent"
         android:dividerHeight="20dp"
         android:textColor="#000"
         android:textSize="20sp" />
+        </RelativeLayout>
+    </HorizontalScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btn_addRole"

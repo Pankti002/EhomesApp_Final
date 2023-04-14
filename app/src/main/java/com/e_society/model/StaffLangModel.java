@@ -1,7 +1,7 @@
 package com.e_society.model;
 
 public class StaffLangModel {
-    String _id, staffMemberName, type, entryTime, exitTime, contactNo, address,
+    String _id, staffMemberName, type, entryTime, exitTime, contactNo, address,email,password,
             agencyName, agencyContactNumber;
 
     public String get_id() {
@@ -58,6 +58,22 @@ public class StaffLangModel {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getAgencyName() {

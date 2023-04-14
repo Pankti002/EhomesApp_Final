@@ -40,7 +40,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class StaffUpdateAcivity extends AppCompatActivity {
 
-    EditText edtStaffName, edtContact, edtAddress, edtAgencyName, edtAgencyContact;
+    EditText edtStaffName, edtContact, edtAddress,edtEmail,edtPassword, edtAgencyName, edtAgencyContact;
 
     Button btnStaff, btnDelStaff;
 
@@ -60,6 +60,8 @@ public class StaffUpdateAcivity extends AppCompatActivity {
         tvType=findViewById(R.id.tv_type);
         edtContact = findViewById(R.id.et_contact);
         edtAddress = findViewById(R.id.et_add);
+        edtEmail=findViewById(R.id.et_email);
+        edtPassword=findViewById(R.id.et_pwd);
         edtAgencyName = findViewById(R.id.et_agencyName);
         edtAgencyContact = findViewById(R.id.et_agencyContact);
         tvEntry = findViewById(R.id.tv_entry);
@@ -76,6 +78,8 @@ public class StaffUpdateAcivity extends AppCompatActivity {
         String strType=i.getStringExtra("TYPE");
         String strContact = i.getStringExtra("CONTACT");
         String strAddress = i.getStringExtra("ADDRESS");
+        String strEmail=i.getStringExtra("EMAIL");
+        String strPassword=i.getStringExtra("PASSWORD");
         String strAgencyName = i.getStringExtra("AGENCY_NAME");
         String strAgencyContact = i.getStringExtra("AGENCY_CONTACT");
         String strEntryTime = i.getStringExtra("ENTRY_TIME");
@@ -87,6 +91,8 @@ public class StaffUpdateAcivity extends AppCompatActivity {
         tvType.setText(strType);
         edtContact.setText(strContact);
         edtAddress.setText(strAddress);
+        edtEmail.setText(strEmail);
+        edtPassword.setText(strPassword);
         edtAgencyName.setText(strAgencyName);
         edtAgencyContact.setText(strAgencyContact);
         tvEntry.setText(strEntryTime);
@@ -149,6 +155,8 @@ public class StaffUpdateAcivity extends AppCompatActivity {
                 String strStaffName = edtStaffName.getText().toString();
                 String strContact = edtContact.getText().toString();
                 String strAddress = edtAddress.getText().toString();
+                String strEmail=edtEmail.getText().toString();
+                String strPassword=edtPassword.getText().toString();
                 String strAgencyName = edtAgencyName.getText().toString();
                 String strAgencyContact = edtAgencyContact.getText().toString();
                 String strEntryTime = tvEntry.getText().toString();
@@ -178,6 +186,18 @@ public class StaffUpdateAcivity extends AppCompatActivity {
                 } else if (!strAddress.matches("[a-zA-Z ]+")) {
                     edtAddress.requestFocus();
                     edtAddress.setError("ENTER ONLY ALPHABETICAL CHARACTER");
+                }else if (strEmail.length() == 0) {
+                    edtEmail.requestFocus();
+                    edtEmail.setError("FIELD CANNOT BE EMPTY");
+                } else if (!strEmail.matches("^[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]{0,4}$")) {
+                    edtEmail.requestFocus();
+                    edtEmail.setError("ENTER A VALID EMAIL ADDRESS");
+                } else if (strPassword.length() == 0) {
+                    edtPassword.requestFocus();
+                    edtPassword.setError("FIELD CANNOT BE EMPTY");
+                } else if (!strPassword.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$")) {
+                    edtPassword.requestFocus();
+                    edtPassword.setError("PASSWORD MUST CONTAIN AT LEAST :\n ONE DIGIT, ONE LOWERCASE LETTER, ONE UPPERCASE LETTER,AND A SPECIAL CHARATER\nNO SPACE ALLOWED\nMINIMUM 8 CHARACTERS ALLOWED");
                 } else if (strAgencyName.length() == 0) {
                     edtAgencyName.requestFocus();
                     edtAgencyName.setError("FIELD CANNOT BE EMPTY");
@@ -193,7 +213,7 @@ public class StaffUpdateAcivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(StaffUpdateAcivity.this, "Validation Successful", Toast.LENGTH_LONG).show();
                     Log.e("Data", staffId + " " + strStaffName + " "+strType+" " + strContact + " " + strAddress + " " + strAgencyName + " " + strAgencyContact + " " + strEntryTime + " " + strExitTime);
-                    apicall(staffId, strStaffName,strType, strContact, strAddress, strAgencyName, strAgencyContact, strEntryTime, strExitTime);
+                    apicall(staffId, strStaffName,strType, strContact, strAddress,strEmail,strPassword, strAgencyName, strAgencyContact, strEntryTime, strExitTime);
                 }
             }
         });
@@ -230,7 +250,7 @@ public class StaffUpdateAcivity extends AppCompatActivity {
 
     }
 
-    private void apicall(String staffId, String strStaffName,String strType, String strContact, String strAddress, String strAgencyName, String strAgencyContact, String strEntryTime, String strExitTime) {
+    private void apicall(String staffId, String strStaffName,String strType, String strContact, String strAddress,String strEmail,String strPassword, String strAgencyName, String strAgencyContact, String strEntryTime, String strExitTime) {
         StringRequest stringRequest = new StringRequest(Request.Method.PUT, Utils.STAFF_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -253,6 +273,8 @@ public class StaffUpdateAcivity extends AppCompatActivity {
                 hashMap.put("type",strType);
                 hashMap.put("contactNo", strContact);
                 hashMap.put("address", strAddress);
+                hashMap.put("email", strEmail);
+                hashMap.put("password", strPassword);
                 hashMap.put("entryTime", strEntryTime);
                 hashMap.put("exitTime", strExitTime);
                 hashMap.put("agencyName", strAgencyName);

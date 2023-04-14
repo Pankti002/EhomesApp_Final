@@ -10,6 +10,7 @@ import com.e_society.display.EventDisplayActivity;
 import com.e_society.display.FeedbackDisplayActivity;
 import com.e_society.display.HouseDisplayActivity;
 import com.e_society.display.MaintenanceDisplayActivity;
+import com.e_society.display.MaintenanceMasterDisplayActivity;
 import com.e_society.display.MemberDisplayActivity;
 import com.e_society.display.NonMemberDisplayActivity;
 import com.e_society.display.PlaceDisplayActivity;
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
 
-                Intent i = new Intent(MainActivity.this, SignupActivity.class);
+                Intent i = new Intent(MainActivity.this, EventActivity.class);
                 startActivity(i);
                 finish();
             }

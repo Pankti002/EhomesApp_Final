@@ -18,16 +18,110 @@
         android:textSize="30sp"
         android:textStyle="bold" />
 
-    <ListView
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/horizontalScrollView"
+        android:layout_below="@id/tv_head">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:id="@+id/layout"
+            >
+
+            <TableLayout
+                android:id="@+id/table"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="1dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginBottom="0dp"
+                    android:paddingVertical="0dp"
+                    >
+
+                    <TextView
+                        android:id="@+id/tv_eventDate"
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:text="Event Start Date"
+                        android:gravity="center"
+                        android:layout_gravity="center_vertical"
+                        android:padding="5dp"
+                        android:background="@drawable/cell_shape"
+                        android:textColor="@color/black"
+                        android:textSize="20dp" />
+
+                    <TextView
+                        android:id="@+id/tv_tvEventEndDate"
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="Event End Date"
+                        android:gravity="center"
+                        android:background="@drawable/cell_shape"
+                        android:padding="5dp"
+                        android:textColor="@color/black"
+                        android:textSize="20dp" />
+
+                    <TextView
+                        android:id="@+id/tv_eventDetails"
+                        android:layout_width="200dp"
+                        android:paddingLeft="5dp"
+                        android:paddingVertical="5dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/cell_shape"
+                        android:text="Event Details"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="@color/black"
+                        android:textSize="18dp" />
+
+                    <TextView
+                        android:id="@+id/tv_rent"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:text="Rent"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:background="@drawable/cell_shape"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="@color/black"
+                        android:textSize="20dp" />
+
+
+                    <TextView
+                        android:layout_width="120dp"
+                        android:layout_height="match_parent"
+                        android:text="Actions"
+                        android:textColor="@color/black"
+                        android:textSize="20dp"
+                        android:gravity="center"
+                        android:id="@+id/act"
+                        android:background="@drawable/cell_shape"
+                        android:padding="6dp" />
+
+                </TableRow>
+            </TableLayout>
+
+
+            <ListView
         android:id="@+id/ls_event_listview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:layout_below="@id/tv_head"
+        android:layout_below="@id/table"
         android:divider="@android:color/transparent"
         android:dividerHeight="20dp"
         android:textColor="#000"
         android:textSize="20sp" />
+        </RelativeLayout>
+    </HorizontalScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btn_add_event"

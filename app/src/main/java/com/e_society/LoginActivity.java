@@ -16,6 +16,9 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.e_society.adapter.StaffListAdapter;
+import com.e_society.display.StaffDisplayActivity;
+import com.e_society.model.StaffLangModel;
 import com.e_society.model.UserLangModel;
 import com.e_society.utils.Utils;
 import com.e_society.utils.VolleySingleton;
@@ -111,7 +114,8 @@ public class LoginActivity extends AppCompatActivity {
                     }
                     else
                     {
-                        Toast.makeText(LoginActivity.this, "Please Enter Valid Credentials .", Toast.LENGTH_SHORT).show();
+                        getStaffApi();
+//                        Toast.makeText(LoginActivity.this, "Please Enter Valid Credentials .", Toast.LENGTH_SHORT).show();
 
                     }
                 } catch (JSONException e) {
@@ -128,6 +132,52 @@ public class LoginActivity extends AppCompatActivity {
         VolleySingleton.getInstance(LoginActivity.this).addToRequestQueue(stringRequest);
 
         }
+
+    private void getStaffApi() {
+        ArrayList<StaffLangModel> arrayList = new ArrayList<StaffLangModel>();
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Utils.STAFF_URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.e("data: ", response);
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray jsonArray = jsonObject.getJSONArray("data");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+                        String strEmail=jsonObject1.getString("email");
+                        String strPassword=jsonObject1.getString("password");
+
+                        if ((strEmail.equals(strInputEmail))&&(strPassword.equals(strInputPassword))) {
+                            Log.e("checking", "email and password");
+                            loginApi(strInputEmail, strInputPassword);
+                            check=1;
+                        }
+                    }
+                    if(check==1)
+                    {
+                        Intent intent = new Intent(LoginActivity.this, SecurityDashboardActivity.class);
+                        startActivity(intent);
+                        Toast.makeText(LoginActivity.this, "Login Done Successfully", Toast.LENGTH_SHORT).show();
+                    }
+                    else
+                    {
+                        //call admin api
+                        Toast.makeText(LoginActivity.this, "Please Enter Valid Credentials .", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("error", String.valueOf(error));
+            }
+        });
+
+        VolleySingleton.getInstance(LoginActivity.this).addToRequestQueue(stringRequest);
+
+    }
 
 
     private void loginApi(String strEmail, String strPassword) {

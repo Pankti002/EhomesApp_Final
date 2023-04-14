@@ -43,14 +43,17 @@ public class FeedbackListAdapter extends BaseAdapter{
     @Override
     public View getView(int position, View view, ViewGroup viewGroup) {
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        view = layoutInflater.inflate(R.layout.raw_list, null);
+        view = layoutInflater.inflate(R.layout.feedback_table, null);
 
-        TextView tvData = view.findViewById(R.id.tv_data);
-        tvData.setText(feedbackLangModelArrayList.get(position).get_id() + " "
-                + feedbackLangModelArrayList.get(position).getHouseId()+" "
-                + feedbackLangModelArrayList.get(position).getDate() + " "
-                + feedbackLangModelArrayList.get(position).getFeedback() + " "
-                + feedbackLangModelArrayList.get(position).getAcknowledgement());
+        TextView tvDate,tvFeedback,tvAck;
+        tvDate=view.findViewById(R.id.tv_feedbackDate);
+        tvFeedback=view.findViewById(R.id.tv_feedback);
+        tvAck=view.findViewById(R.id.tv_acknowledgement);
+
+        tvDate.setText(feedbackLangModelArrayList.get(position).getDate());
+        tvFeedback.setText(feedbackLangModelArrayList.get(position).getFeedback());
+        tvAck.setText(feedbackLangModelArrayList.get(position).getAcknowledgement());
+
 
         ImageView imgEdit = view.findViewById(R.id.img_edit);
         ImageView imgDelete = view.findViewById(R.id.img_delete);

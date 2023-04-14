@@ -11,6 +11,7 @@ public class Utils {
     public static String ROLE_URL = MAIN_URL + "role";
     public static String HOUSE_URL = MAIN_URL + "house";
     public static String MAINTENANCE_URL = MAIN_URL + "maintenance";
+    public static String MAINTENANCE_MASTER_URL = MAIN_URL + "maintenanceMaster";
     public static String EVENT_URL = MAIN_URL + "event";
     public static String FEEDBACK_URL = MAIN_URL + "feedback";
     public static String STAFF_URL = MAIN_URL + "staff";

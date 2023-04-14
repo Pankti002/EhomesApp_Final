@@ -42,7 +42,8 @@ import com.e_society.utils.VolleySingleton;
 
 
 public class MaintenanceUpdateActivity extends AppCompatActivity {
-    EditText edtHouseId, edtMaintenanceAmount, edtPenalty;
+    EditText edtHouseId;
+    TextView tvMaintenanceAmount, tvPenalty;
     Button btnMaintenance, btnDeleteMaintenance;
     String strMaintenanceMonth;
 
@@ -65,8 +66,8 @@ public class MaintenanceUpdateActivity extends AppCompatActivity {
         Intent i = getIntent();
         spinnerMonth = findViewById(R.id.spinner_month);
         edtHouseId = findViewById(R.id.et_houseId);
-        edtMaintenanceAmount = findViewById(R.id.et_amt);
-        edtPenalty = findViewById(R.id.et_penalty);
+        tvMaintenanceAmount = findViewById(R.id.tv_amt);
+        tvPenalty = findViewById(R.id.tv_penalty);
         tvDisDate = findViewById(R.id.tv_create);
         tvPayDate = findViewById(R.id.tv_payDate);
         tvLastDate = findViewById(R.id.tv_lastDate);
@@ -110,8 +111,8 @@ public class MaintenanceUpdateActivity extends AppCompatActivity {
 
         //set text
         MaintenanceLangModel maintenanceLangModel = new MaintenanceLangModel();
-        edtMaintenanceAmount.setText(strMaintenanceAmount);
-        edtPenalty.setText(strPenalty);
+        tvMaintenanceAmount.setText(strMaintenanceAmount);
+        tvPenalty.setText(strPenalty);
         tvDisDate.setText(strCreationDate);
         tvPayDate.setText(strPaymentDate);
         tvLastDate.setText(strLastDate);
@@ -130,8 +131,8 @@ public class MaintenanceUpdateActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String strHouseId = edtHouseId.getText().toString();
-                String strMaintenanceAmount = edtMaintenanceAmount.getText().toString();
-                String strPenalty = edtPenalty.getText().toString();
+                String strMaintenanceAmount = tvMaintenanceAmount.getText().toString();
+                String strPenalty = tvPenalty.getText().toString();
                 String strCreateDate = tvDisDate.getText().toString();
                 String strPaymentDate = tvPayDate.getText().toString();
                 String strLastDate = tvLastDate.getText().toString();

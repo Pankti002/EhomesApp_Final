@@ -36,7 +36,7 @@ import java.util.Map;
 
 public class StaffActivity extends AppCompatActivity {
 
-    EditText edtStaffName, edtContact, edtAddress, edtAgencyName, edtAgencyContact;
+    EditText edtStaffName, edtContact, edtAddress,edtEmail,edtPassword, edtAgencyName, edtAgencyContact;
 
     Button btnStaff;
 
@@ -99,6 +99,8 @@ public class StaffActivity extends AppCompatActivity {
         edtStaffName = findViewById(R.id.et_name);
         edtContact = findViewById(R.id.et_contact);
         edtAddress = findViewById(R.id.et_add);
+        edtEmail=findViewById(R.id.et_email);
+        edtPassword=findViewById(R.id.et_pwd);
         edtAgencyName = findViewById(R.id.et_agencyName);
         edtAgencyContact = findViewById(R.id.et_agencyContact);
 
@@ -115,6 +117,8 @@ public class StaffActivity extends AppCompatActivity {
                 Log.e(strType+"","Type");
                 String strContact = edtContact.getText().toString();
                 String strAddress = edtAddress.getText().toString();
+                String strEmail = edtEmail.getText().toString();
+                String strPassword = edtPassword.getText().toString();
                 String strAgencyName = edtAgencyName.getText().toString();
                 String strAgencyContact = edtAgencyContact.getText().toString();
                 String strEntryTime = tvEntry.getText().toString();
@@ -144,6 +148,18 @@ public class StaffActivity extends AppCompatActivity {
                 } else if (!strAddress.matches("[a-zA-Z ]+")) {
                     edtAddress.requestFocus();
                     edtAddress.setError("ENTER ONLY ALPHABETICAL CHARACTER");
+                } else if (strEmail.length() == 0) {
+                    edtEmail.requestFocus();
+                    edtEmail.setError("FIELD CANNOT BE EMPTY");
+                } else if (!strEmail.matches("^[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]{0,4}$")) {
+                    edtEmail.requestFocus();
+                    edtEmail.setError("ENTER A VALID EMAIL ADDRESS");
+                } else if (strPassword.length() == 0) {
+                    edtPassword.requestFocus();
+                    edtPassword.setError("FIELD CANNOT BE EMPTY");
+                } else if (!strPassword.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$")) {
+                    edtPassword.requestFocus();
+                    edtPassword.setError("PASSWORD MUST CONTAIN AT LEAST :\n ONE DIGIT, ONE LOWERCASE LETTER, ONE UPPERCASE LETTER,AND A SPECIAL CHARATER\nNO SPACE ALLOWED\nMINIMUM 8 CHARACTERS ALLOWED");
                 } else if (strAgencyName.length() == 0) {
                     edtAgencyName.requestFocus();
                     edtAgencyName.setError("FIELD CANNOT BE EMPTY");
@@ -159,14 +175,14 @@ public class StaffActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(StaffActivity.this, "Validation Successful", Toast.LENGTH_LONG).show();
                     Log.e("Data: ", strStaffName + " " + strContact + " " + strAddress + " " + strAgencyName + " " + strAgencyContact + " " + strEntryTime + " " + strExitTime + " " + strType);
-                    apicall(strStaffName, strType, strEntryTime, strExitTime, strContact, strAddress, strAgencyName, strAgencyContact);
+                    apicall(strStaffName, strType, strEntryTime, strExitTime, strContact, strAddress, strEmail,strPassword,strAgencyName, strAgencyContact);
                 }
             }
         });
 
     }
 
-    private void apicall(String strStaffName, String strType, String strEntryTime, String strExitTime, String strContact, String strAddress, String strAgencyName, String strAgencyContact) {
+    private void apicall(String strStaffName, String strType, String strEntryTime, String strExitTime, String strContact, String strAddress,String strEmail,String strPassword, String strAgencyName, String strAgencyContact) {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Utils.STAFF_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -189,6 +205,8 @@ public class StaffActivity extends AppCompatActivity {
                 hashMap.put("exitTime", strExitTime);
                 hashMap.put("contactNo", strContact);
                 hashMap.put("address", strAddress);
+                hashMap.put("email", strEmail);
+                hashMap.put("password", strPassword);
                 hashMap.put("agencyName", strAgencyName);
                 hashMap.put("agencyContactNumber", strAgencyContact);
                 return hashMap;

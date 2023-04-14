@@ -7,13 +7,13 @@
     android:background="#FFF0FF"
     android:orientation="vertical"
     android:padding="10dp"
-    tools:context=".display.NonMemberDisplayActivity">
+    tools:context=".display.MaintenanceMasterDisplayActivity">
 
     <TextView
         android:id="@+id/tv_head"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="40dp"
+        android:layout_marginTop="10dp"
         android:gravity="center"
         android:text="Data"
         android:textColor="#B765A6"
@@ -49,10 +49,10 @@
                     >
 
                     <TextView
-                        android:id="@+id/tv_visitorName"
+                        android:id="@+id/tv_amount"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
-                        android:text="VisitorName"
+                        android:text="Firstname"
                         android:gravity="center"
                         android:layout_gravity="center_vertical"
                         android:padding="5dp"
@@ -61,64 +61,17 @@
                         android:textSize="20dp" />
 
                     <TextView
-                        android:id="@+id/tv_arrivingTime"
+                        android:id="@+id/tv_penalty"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:text="Arriving Time"
+                        android:text="Lastname"
                         android:gravity="center"
                         android:background="@drawable/cell_shape"
                         android:padding="5dp"
                         android:textColor="@color/black"
                         android:textSize="20dp" />
 
-                    <TextView
-                        android:id="@+id/tv_visited"
-                        android:layout_width="118dp"
-                        android:paddingLeft="5dp"
-                        android:paddingVertical="5dp"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/cell_shape"
-                        android:text="is Visited"
-                        android:layout_gravity="center_vertical"
-                        android:textColor="@color/black"
-                        android:textSize="18dp" />
-
-                    <TextView
-                        android:id="@+id/tv_pickup"
-                        android:layout_width="45dp"
-                        android:layout_height="wrap_content"
-                        android:text="PickUp"
-                        android:gravity="center"
-                        android:padding="5dp"
-                        android:background="@drawable/cell_shape"
-                        android:layout_gravity="center_vertical"
-                        android:textColor="@color/black"
-                        android:textSize="20dp" />
-
-                    <TextView
-                        android:id="@+id/tv_status"
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:text="Status"
-                        android:gravity="center"
-                        android:background="@drawable/cell_shape"
-                        android:layout_gravity="center_vertical"
-                        android:padding="5dp"
-                        android:textColor="@color/black"
-                        android:textSize="20dp" />
-
-                    <TextView
-                        android:id="@+id/tv_date"
-                        android:layout_width="125dp"
-                        android:layout_height="wrap_content"
-                        android:text="Date"
-                        android:gravity="center"
-                        android:layout_gravity="center_vertical"
-                        android:background="@drawable/cell_shape"
-                        android:padding="5dp"
-                        android:textColor="@color/black"
-                        android:textSize="20dp" />
 
                     <TextView
                         android:layout_width="120dp"
@@ -134,27 +87,17 @@
                 </TableRow>
             </TableLayout>
 
-
             <ListView
-        android:id="@+id/ls_nonMember_listview"
+        android:id="@+id/ls_maintenanceMaster_listview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_below="@id/table"
         android:divider="@android:color/transparent"
         android:dividerHeight="20dp"
         android:textColor="#000"
         android:textSize="20sp" />
-
         </RelativeLayout>
     </HorizontalScrollView>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btn_add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="20dp"
-        android:src="@drawable/ic_nonmember" />
 </RelativeLayout>

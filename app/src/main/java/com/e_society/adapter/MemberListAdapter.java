@@ -46,16 +46,22 @@ public class MemberListAdapter extends BaseAdapter {
     public View getView(int position, View view, ViewGroup viewGroup) {
 
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        view = layoutInflater.inflate(R.layout.raw_list, null);
+        view = layoutInflater.inflate(R.layout.member_table, null);
 
-        TextView TvData = view.findViewById(R.id.tv_data);
-        TvData.setText(memberLangModelArrayList.get(position).get_id() + " "
-                + memberLangModelArrayList.get(position).getHouseId()+" "
-                + memberLangModelArrayList.get(position).getMemberName() + " "
-                + memberLangModelArrayList.get(position).getAge() + " "
-                + memberLangModelArrayList.get(position).getContactNo() + " "
-                + memberLangModelArrayList.get(position).getGender()+" "
-                + memberLangModelArrayList.get(position).getDateOfBirth());
+        TextView tv_memberName,tv_Age,tvCntNo,tvGender,tv_Dob;
+
+        tv_memberName=view.findViewById(R.id.tv_memberName);
+        tv_Age=view.findViewById(R.id.tv_age);
+        tvCntNo=view.findViewById(R.id.tv_contactNo);
+        tvGender=view.findViewById(R.id.tv_gender);
+        tv_Dob=view.findViewById(R.id.tv_dateOfBirth);
+
+        tv_memberName.setText(memberLangModelArrayList.get(position).getMemberName());
+        tv_Age.setText(memberLangModelArrayList.get(position).getAge());
+        tv_Dob.setText(memberLangModelArrayList.get(position).getDateOfBirth());
+        tv_Age.setText(memberLangModelArrayList.get(position).getAge());
+        tvCntNo.setText(memberLangModelArrayList.get(position).getContactNo());
+        tvGender.setText(memberLangModelArrayList.get(position).getGender());
 
         ImageView imgEdit = view.findViewById(R.id.img_edit);
         ImageView imgDelete = view.findViewById(R.id.img_delete);

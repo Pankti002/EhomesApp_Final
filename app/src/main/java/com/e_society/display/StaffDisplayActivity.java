@@ -68,6 +68,8 @@ public class StaffDisplayActivity extends AppCompatActivity {
                         String strExitTime = jsonObject1.getString("exitTime");
                         String strContactNo = jsonObject1.getString("contactNo");
                         String strAddress = jsonObject1.getString("address");
+                        String strEmail=jsonObject1.getString("email");
+                        String strPassword=jsonObject1.getString("password");
                         String strAgencyName = jsonObject1.getString("agencyName");
                         String strAgencyContactNo = jsonObject1.getString("agencyContactNumber");
 
@@ -81,6 +83,8 @@ public class StaffDisplayActivity extends AppCompatActivity {
                         staffLangModel.setExitTime(strExitTime);
                         staffLangModel.setContactNo(strContactNo);
                         staffLangModel.setAddress(strAddress);
+                        staffLangModel.setEmail(strEmail);
+                        staffLangModel.setPassword(strPassword);
                         staffLangModel.setAgencyName(strAgencyName);
                         staffLangModel.setAgencyContactNumber(strAgencyContactNo);
 

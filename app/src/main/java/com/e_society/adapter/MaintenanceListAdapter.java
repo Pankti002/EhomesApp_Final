@@ -47,18 +47,23 @@ public class MaintenanceListAdapter extends BaseAdapter {
     public View getView(int position, View view, ViewGroup parent) {
 
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        view = layoutInflater.inflate(R.layout.raw_list, null);
+        view = layoutInflater.inflate(R.layout.maintenance_table, null);
 
-        TextView tvData = view.findViewById(R.id.tv_data);
 
-        tvData.setText(maintenanceLangModelArrayList.get(position).get_id() + " " +
-                maintenanceLangModelArrayList.get(position).getHouse() + " " +
-                maintenanceLangModelArrayList.get(position).getCreationDate() + " " +
-                maintenanceLangModelArrayList.get(position).getMonth() + " " +
-                maintenanceLangModelArrayList.get(position).getMaintenanceAmount() + " "+
-                maintenanceLangModelArrayList.get(position).getPaymentDate() +" "+
-                maintenanceLangModelArrayList.get(position).getLastDate() +" "+
-                maintenanceLangModelArrayList.get(position).getPenalty());
+        TextView tv_CreationDate, tvMonth,tvMaintenanceAmt,tvPDate,tvLDate,tv_penalty;
+        tv_CreationDate=view.findViewById(R.id.tv_creationDate);
+        tvMonth=view.findViewById(R.id.tv_month);
+        tvMaintenanceAmt=view.findViewById(R.id.tv_maintenanceAmt);
+        tvPDate=view.findViewById(R.id.tv_pDate);
+        tvLDate=view.findViewById(R.id.tv_lDate);
+        tv_penalty=view.findViewById(R.id.tv_penalty);
+
+        tv_CreationDate.setText(maintenanceLangModelArrayList.get(position).getCreationDate());
+        tvMonth.setText(maintenanceLangModelArrayList.get(position).getMonth());
+        tvMaintenanceAmt.setText(maintenanceLangModelArrayList.get(position).getMaintenanceAmount());
+        tvPDate.setText(maintenanceLangModelArrayList.get(position).getPaymentDate());
+        tvLDate.setText( maintenanceLangModelArrayList.get(position).getLastDate());
+        tv_penalty.setText(maintenanceLangModelArrayList.get(position).getPenalty());
 
         ImageView imgEdit = view.findViewById(R.id.img_edit);
         ImageView imgDelete = view.findViewById(R.id.img_delete);

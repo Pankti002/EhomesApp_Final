@@ -17,16 +17,34 @@
         >
 
         <TextView
-            android:id="@+id/tv_roleName"
-            android:layout_width="150dp"
+            android:id="@+id/tv_feedbackDate"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/cell_shape"
+            android:padding="5dp"
+            android:textColor="@color/black"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/tv_feedback"
+            android:layout_width="200dp"
+            android:padding="5dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/cell_shape"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/black"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/tv_acknowledgement"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:padding="5dp"
             android:background="@drawable/cell_shape"
             android:layout_gravity="center_vertical"
             android:textColor="@color/black"
             android:textSize="20dp" />
-
-
 
         <LinearLayout
             android:layout_height="match_parent"

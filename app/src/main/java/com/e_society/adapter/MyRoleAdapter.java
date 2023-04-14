@@ -47,8 +47,8 @@ public class MyRoleAdapter extends BaseAdapter {
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         view = layoutInflater.inflate(R.layout.role_table, null);
 
-        TextView tvData = view.findViewById(R.id.tv_data1);
-        tvData.setText(roleLangModelArrayList.get(position).getRoleName());
+        TextView tvName = view.findViewById(R.id.tv_roleName);
+        tvName.setText(roleLangModelArrayList.get(position).getRoleName());
 
         ImageView imgEdit = view.findViewById(R.id.img_edit);
         ImageView imgDelete = view.findViewById(R.id.img_delete);

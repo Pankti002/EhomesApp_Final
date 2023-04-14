@@ -15,6 +15,9 @@
         android:theme="@style/Theme.ESociety"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".display.MaintenanceMasterDisplayActivity"
+            android:exported="false" />
+        <activity
             android:name=".display.FeedbackDisplayActivity"
             android:exported="false" />
         <activity
@@ -79,6 +82,9 @@
             android:exported="false" />
         <activity
             android:name=".update.StaffUpdateAcivity"
+            android:exported="false" />
+        <activity
+            android:name=".update.MaintenanceMasterUpdateActivity"
             android:exported="false" />
         <activity
             android:name=".update.PlaceUpdateActivity"
