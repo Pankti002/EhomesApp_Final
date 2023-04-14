@@ -63,13 +63,17 @@ public class HouseDisplayActivity extends AppCompatActivity {
                     JSONArray jsonArray = jsonObject.getJSONArray("data");
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject1 = jsonArray.getJSONObject(i);
-                        //       JSONObject user = jsonObject1.getJSONObject("user");
+
+                        JSONObject jsonObject2 = jsonObject1.getJSONObject("user");
+                        String strUserId = jsonObject2.getString("_id");
+
                         String strHouseId = jsonObject1.getString("_id");
                         String strHouseDeets = jsonObject1.getString("houseDetails");
 
                         HouseLangModel houseLangModel = new HouseLangModel();
                         houseLangModel.set_id(strHouseId);
                         houseLangModel.setHouse(strHouseDeets);
+                        houseLangModel.setUser(strUserId);
                         arrayList.add(houseLangModel);
                     }
                     HouseListAdapter houseListAdapter = new HouseListAdapter(HouseDisplayActivity.this, arrayList);

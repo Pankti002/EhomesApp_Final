@@ -35,9 +35,9 @@ import java.util.Map;
 
 public class EventUpdateActivity extends AppCompatActivity {
 
-    EditText edt_eventDetail, edt_rent, edt_HouseId, edtPlaceId;
+    EditText edt_eventDetail, edt_HouseId, edtPlaceId;
     Button btn_event, btnDeleteEvent;
-    TextView tvDate, tvEndDate;
+    TextView tvDate, tvEndDate, tvRent;
     ImageButton btnDate, btnEndDate;
 
     private int date;
@@ -57,7 +57,7 @@ public class EventUpdateActivity extends AppCompatActivity {
         Intent i = getIntent();
 
         edt_eventDetail = findViewById(R.id.edt_eventDetail);
-        edt_rent = findViewById(R.id.edt_rent);
+        tvRent = findViewById(R.id.edt_rent);
         btn_event = findViewById(R.id.btn_event);
         btnDate = findViewById(R.id.btn_date);
         tvDate = findViewById(R.id.tv_date);
@@ -83,7 +83,7 @@ public class EventUpdateActivity extends AppCompatActivity {
         //set text
         EventLangModel eventLangModel = new EventLangModel();
         edt_eventDetail.setText(strEventDetails);
-        edt_rent.setText(strRent);
+        tvRent.setText(strRent);
         tvDate.setText(strEventDate);
         tvEndDate.setText(strEventEndDate);
 
@@ -103,7 +103,7 @@ public class EventUpdateActivity extends AppCompatActivity {
                 String strEventDate = tvEndDate.getText().toString();
                 String strEventEndDate = tvDate.getText().toString();
                 String strEventDetails = edt_eventDetail.getText().toString();
-                String strRent = edt_rent.getText().toString();
+                String strRent = tvRent.getText().toString();
 
                 if(strEventDate.length()==0)
                 {
@@ -124,14 +124,6 @@ public class EventUpdateActivity extends AppCompatActivity {
                 {
                     edt_eventDetail.requestFocus();
                     edt_eventDetail.setError("ENTER ONLY ALPHABETICAL CHARACTER");
-                }
-                else if (strRent.length() ==0) {
-                    edt_rent.requestFocus();
-                    edt_rent.setError("FIELD CANNOT BE EMPTY");
-                }
-                else if (!strRent.matches("^[0-9]{1,10}$")) {
-                    edt_rent.requestFocus();
-                    edt_rent.setError("ENTER ONLY DIGITS");
                 }
                 else{
                     Toast.makeText(EventUpdateActivity.this, "Validation Successful", Toast.LENGTH_SHORT).show();

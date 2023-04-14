@@ -13,6 +13,8 @@ public class Utils {
     public static String MAINTENANCE_URL = MAIN_URL + "maintenance";
     public static String MAINTENANCE_MASTER_URL = MAIN_URL + "maintenanceMaster";
     public static String EVENT_URL = MAIN_URL + "event";
+    public static String DATE_URL = MAIN_URL + "getEventByDate";
+    public static String END_DATE_URL = MAIN_URL + "getEventByEndDate";
     public static String FEEDBACK_URL = MAIN_URL + "feedback";
     public static String STAFF_URL = MAIN_URL + "staff";
     public static String PLACE_URL = MAIN_URL + "place";

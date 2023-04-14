@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/houseLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFF0FF"
@@ -42,6 +43,21 @@
         android:popupBackground="#FFF0FF"
 
         />
+
+    <TextView
+        android:id="@+id/tvUser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:drawableLeft="@drawable/ic_person"
+        android:drawablePadding="10dp"
+        android:imeOptions="actionNext"
+        android:padding="20dp"
+        android:singleLine="true"
+        android:textColorHint="#000"
+        android:visibility="gone"
+        android:textSize="20sp" />
+
 
     <android.widget.Button
         android:id="@+id/btn_addHouse"

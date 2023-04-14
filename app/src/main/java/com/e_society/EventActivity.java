@@ -21,24 +21,16 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.e_society.adapter.EventListAdapter;
-import com.e_society.adapter.PlaceListAdapter;
 import com.e_society.display.EventDisplayActivity;
-import com.e_society.display.PlaceDisplayActivity;
 import com.e_society.model.EventLangModel;
-import com.e_society.model.PlaceLangModel;
 import com.e_society.utils.Utils;
 import com.e_society.utils.VolleySingleton;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -49,7 +41,7 @@ public class EventActivity extends AppCompatActivity {
     TextView tvDate, tvEndDate, tvRent;
     ImageButton btnDate, btnEndDate;
 
-    String strPlaceId, strDate, strEndDate;
+    String strHouseId,strPlaceId, strDate, strEndDate, strEventDetails, strRent;
 
 
     @Override
@@ -90,7 +82,7 @@ public class EventActivity extends AppCompatActivity {
                         chosenDate.set(dayOfMonth, month, year);
                         long dtDob = chosenDate.toMillis(true);
 
-                        strDate = DateFormat.format("yyyy/MM/dd", dtDob);
+                        strDate = DateFormat.format("yyyy-MM-dd", dtDob);
 
                         //txtDate.setText(strDate);
 
@@ -114,7 +106,7 @@ public class EventActivity extends AppCompatActivity {
                         chosenDate.set(dayOfMonth, month, year);
                         long dtDob = chosenDate.toMillis(true);
 
-                        strEndDate = DateFormat.format("yyyy/MM/dd", dtDob);
+                        strEndDate = DateFormat.format("yyyy-MM-dd", dtDob);
 
                         tvEndDate.setText(strEndDate);
                     }
@@ -133,12 +125,12 @@ public class EventActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.e("inside","button Click");
-                String strHouseId = edtHouseId.getText().toString();
+                strHouseId = edtHouseId.getText().toString();
                 strPlaceId = edtPlaceId.getText().toString();
                 strDate = tvDate.getText().toString();
                 strEndDate = tvEndDate.getText().toString();
-                String strEventDetails = edtEventDetails.getText().toString();
-                String strRent = tvRent.getText().toString();
+                strEventDetails = edtEventDetails.getText().toString();
+                strRent = tvRent.getText().toString();
 
                 Log.e("get Text","done");
 
@@ -152,13 +144,9 @@ public class EventActivity extends AppCompatActivity {
                     tvEndDate.requestFocus();
                     tvEndDate.setError("FIELD CANNOT BE EMPTY");
                 }
-                else if((strDate.length()!=0) && (strEndDate.length()!=0))
-                {
-                    Log.e("check date"," api call");
-                    getEventsApi();
-                }
                 else if(strEventDetails.length()==0)
                 {
+                    Log.e("in details","validations");
                     edtEventDetails.requestFocus();
                     edtEventDetails.setError("FIELD CANNOT BE EMPTY");
                 }
@@ -172,8 +160,7 @@ public class EventActivity extends AppCompatActivity {
                     tvRent.setError("FIELD CANNOT BE EMPTY");
                 }
                 else{
-                    Toast.makeText(EventActivity.this, "Validation Successful", Toast.LENGTH_SHORT).show();
-                    apiCall(strHouseId, strPlaceId, strDate, strEndDate, strEventDetails, strRent);
+                    DateAPI(strDate,strEndDate);
 
                 }
 
@@ -184,48 +171,64 @@ public class EventActivity extends AppCompatActivity {
 
     }
 
-    private void getEventsApi() {
+    private void DateAPI(String strDate, String strEndDate) {
         ArrayList<EventLangModel> arrayList = new ArrayList<EventLangModel>();
-
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, Utils.EVENT_URL, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Utils.DATE_URL+"/"+ this.strDate +"/"+ this.strEndDate, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
-                    Log.e("api calling done","");
                     JSONObject jsonObject = new JSONObject(response);
-                    JSONArray jsonArray = jsonObject.getJSONArray("data");
-                    for (int i = 0; i < jsonArray.length(); i++) {
-
-                        JSONObject jsonObject1 = jsonArray.getJSONObject(i);
-
-                        JSONObject jsonObject3 = jsonObject1.getJSONObject("place");
-                        String placeId = jsonObject3.getString("_id");
-
-                        String strEventDate = jsonObject1.getString("eventDate");
-                        String strEventEndDate = jsonObject1.getString("eventEndDate");
-
-                        Log.e(strPlaceId,strDate+" "+strEventDate);
-                        Log.e(strPlaceId.equals(placeId)+"","");
-                        Log.e(placeId,"");
-                        if(strPlaceId.equals(placeId)==true)
-                        {
-                            Log.e("inside","if");
-                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                            Date EventDate = sdf.parse(strEventDate);
-                            Date date1 = sdf.parse(strDate);
-                            Log.e(EventDate.compareTo(date1)+"","");
-                            if(strEventDate.equals(strDate)==true || strEventDate.equals(strEndDate)==true || strEventEndDate.equals(strDate)==true || strEventEndDate.equals(strEndDate)==true){
-                                Log.e("inside","another if");
-                                edtPlaceId.requestFocus();
-                                tvDate.requestFocus();
-                                tvEndDate.requestFocus();
-                                edtPlaceId.setError("PLACE IS NOT AVAILABLE ON SELECTED DATES");
-                                Log.e("PLACE IS NOT AVAILABLE"," ON SELECTED DATES");
-                            }
-                        }
-
+                    String msg = jsonObject.getString("data");
+                    Log.e(msg,"");
+                    if(msg.contains("Not"))
+                    {
+                        Toast.makeText(EventActivity.this, "PLACE NOT AVAILABLE", Toast.LENGTH_SHORT).show();
                     }
-                } catch (JSONException | ParseException e) {
+                    else {
+                        EndDateApiCheck();
+
+//                        Toast.makeText(EventActivity.this, "PLACE AVAILABLE", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(EventActivity.this, "Validation Successful", Toast.LENGTH_SHORT).show();
+//                        apiCall(strHouseId, strPlaceId, strDate, strEndDate, strEventDetails, strRent);
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+
+        VolleySingleton.getInstance(EventActivity.this).addToRequestQueue(stringRequest);
+    }
+
+    private void EndDateApiCheck() {
+        ArrayList<EventLangModel> arrayList = new ArrayList<EventLangModel>();
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Utils.END_DATE_URL+"/"+ this.strDate +"/"+ this.strEndDate, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    String msg = jsonObject.getString("data");
+                    Log.e(msg,"");
+                    if(msg.contains("Not"))
+                    {
+                        Toast.makeText(EventActivity.this, "PLACE NOT AVAILABLE", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        Toast.makeText(EventActivity.this, "PLACE AVAILABLE", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EventActivity.this, "Validation Successful", Toast.LENGTH_SHORT).show();
+                        apiCall(strHouseId, strPlaceId, strDate, strEndDate, strEventDetails, strRent);
+                    }
+
+
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
@@ -239,6 +242,7 @@ public class EventActivity extends AppCompatActivity {
         VolleySingleton.getInstance(EventActivity.this).addToRequestQueue(stringRequest);
 
     }
+
 
 //    private void getPlaceApi() {
 //

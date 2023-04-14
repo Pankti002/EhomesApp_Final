@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
 
-                Intent i = new Intent(MainActivity.this, EventActivity.class);
+                Intent i = new Intent(MainActivity.this, HouseDisplayActivity.class);
                 startActivity(i);
                 finish();
             }

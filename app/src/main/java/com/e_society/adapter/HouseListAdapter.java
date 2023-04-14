@@ -63,7 +63,7 @@ public class HouseListAdapter extends BaseAdapter {
                 Intent intent = new Intent(context, HouseUpdateActivity.class);
                 intent.putExtra("HOUSE_ID", id);
                 intent.putExtra("HOUSE_DEETS", houseLangModelArrayList.get(position).getHouse());
-
+                intent.putExtra("USER",houseLangModelArrayList.get(position).getUser());
                 context.startActivity(intent);
 
             }
@@ -78,7 +78,7 @@ public class HouseListAdapter extends BaseAdapter {
                 Intent intent = new Intent(context, HouseUpdateActivity.class);
                 intent.putExtra("HOUSE_ID", id1);
                 intent.putExtra("HOUSE_DEETS", houseLangModelArrayList.get(position).getHouse());
-
+                intent.putExtra("USER",houseLangModelArrayList.get(position).getUser());
 
                 context.startActivity(intent);
             }
