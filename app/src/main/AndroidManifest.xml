@@ -15,6 +15,12 @@
         android:theme="@style/Theme.ESociety"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".display.AdminDisplayActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AddAdminActivity"
+            android:exported="false" />
+        <activity
             android:name=".display.MaintenanceMasterDisplayActivity"
             android:exported="false" />
         <activity
@@ -40,6 +46,9 @@
             android:exported="false" />
         <activity
             android:name=".update.FeedbackUpdateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".update.AdminUpdateActivity"
             android:exported="false" />
         <activity
             android:name=".EventActivity"

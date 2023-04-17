@@ -20,6 +20,7 @@ public class Utils {
     public static String PLACE_URL = MAIN_URL + "place";
     public static String MEMBER_URL = MAIN_URL + "member";
     public static String NONMEMBER_URL = MAIN_URL + "nonMember";
+    public static String ADMIN_URL = MAIN_URL + "admin";
 }
 
 

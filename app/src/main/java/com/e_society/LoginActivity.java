@@ -16,8 +16,11 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.e_society.adapter.AdminListAdapter;
 import com.e_society.adapter.StaffListAdapter;
+import com.e_society.display.AdminDisplayActivity;
 import com.e_society.display.StaffDisplayActivity;
+import com.e_society.model.AdminLangModel;
 import com.e_society.model.StaffLangModel;
 import com.e_society.model.UserLangModel;
 import com.e_society.utils.Utils;
@@ -119,7 +122,6 @@ public class LoginActivity extends AppCompatActivity {
                     else
                     {
                         getStaffApi();
-//                        Toast.makeText(LoginActivity.this, "Please Enter Valid Credentials .", Toast.LENGTH_SHORT).show();
 
                     }
                 } catch (JSONException e) {
@@ -166,8 +168,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
                     else
                     {
-                        //call admin api
-                        Toast.makeText(LoginActivity.this, "Please Enter Valid Credentials .", Toast.LENGTH_SHORT).show();
+                        AdminApi();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -177,6 +178,58 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e("error", String.valueOf(error));
+            }
+        });
+
+        VolleySingleton.getInstance(LoginActivity.this).addToRequestQueue(stringRequest);
+
+    }
+
+    private void AdminApi() {
+        ArrayList<AdminLangModel> arrayList = new ArrayList<AdminLangModel>();
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Utils.ADMIN_URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray jsonArray = jsonObject.getJSONArray("data");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+                        String strAdminId = jsonObject1.getString("_id");
+                        String strEmail = jsonObject1.getString("email");
+                        String strPassword = jsonObject1.getString("password");
+
+                        JSONObject jsonObject2 = jsonObject1.getJSONObject("role");
+                        String roleId = jsonObject2.getString("_id");
+
+                        if ((strEmail.equals(strInputEmail))&&(strPassword.equals(strInputPassword))) {
+                            Log.e("checking", "email and password");
+                            name="admin";
+                            loginApi(strInputEmail, strInputPassword);
+                            check=1;
+                        }
+
+                    }
+                    if(check==1)
+                    {
+                        Intent intent = new Intent(LoginActivity.this, DashBoardActivity.class);
+                        startActivity(intent);
+                        Toast.makeText(LoginActivity.this, "Login Done Successfully", Toast.LENGTH_SHORT).show();
+                    }
+                    else
+                    {
+                        //call admin api
+                        Toast.makeText(LoginActivity.this, "Please Enter Valid Credentials .", Toast.LENGTH_SHORT).show();
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
             }
         });
 

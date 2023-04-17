@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 
+import com.e_society.display.AdminDisplayActivity;
 import com.e_society.display.EventDisplayActivity;
 import com.e_society.display.FeedbackDisplayActivity;
 import com.e_society.display.HouseDisplayActivity;

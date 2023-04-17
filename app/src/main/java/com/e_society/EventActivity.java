@@ -172,7 +172,7 @@ public class EventActivity extends AppCompatActivity {
                     tvRent.setError("FIELD CANNOT BE EMPTY");
                 }
                 else{
-                    DateAPI(strDate,strEndDate);
+                    DateAPI(strDate,strEndDate,placeId);
 
                 }
 
@@ -394,57 +394,24 @@ public class EventActivity extends AppCompatActivity {
         VolleySingleton.getInstance(this).addToRequestQueue(stringRequest);
     }
 
-    private void DateAPI(String strDate, String strEndDate) {
+    private void DateAPI(String strDate, String strEndDate, String placeId) {
         ArrayList<EventLangModel> arrayList = new ArrayList<EventLangModel>();
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, Utils.DATE_URL+"/"+ this.strDate +"/"+ this.strEndDate, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Utils.DATE_URL+"/"+ this.strDate +"/"+ this.strEndDate+"/"+placeId, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
-                    String msg = jsonObject.getString("data");
-                    Log.e(msg,"");
-                    if(msg.contains("Not"))
+                    String msg = jsonObject.getString("msg");
+                    Log.e(msg,"MEssage");
+                    if(msg.contains("No"))
                     {
-                        Toast.makeText(EventActivity.this, "PLACE NOT AVAILABLE", Toast.LENGTH_SHORT).show();
-                    }
-                    else {
-                        EndDateApiCheck();
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        });
-
-        VolleySingleton.getInstance(EventActivity.this).addToRequestQueue(stringRequest);
-    }
-
-    private void EndDateApiCheck() {
-        ArrayList<EventLangModel> arrayList = new ArrayList<EventLangModel>();
-
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, Utils.END_DATE_URL+"/"+ this.strDate +"/"+ this.strEndDate, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
-                    String msg = jsonObject.getString("data");
-                    Log.e(msg,"");
-                    if(msg.contains("Not"))
-                    {
-                        Toast.makeText(EventActivity.this, "PLACE NOT AVAILABLE", Toast.LENGTH_SHORT).show();
-                    }
-                    else {
                         Toast.makeText(EventActivity.this, "PLACE AVAILABLE", Toast.LENGTH_SHORT).show();
                         Toast.makeText(EventActivity.this, "Validation Successful", Toast.LENGTH_SHORT).show();
                         apiCall(houseId, placeId, strDate, strEndDate, strEventDetails, strRent);
                     }
-
+                    else if(msg.contains("Events")){
+                        Toast.makeText(EventActivity.this, "PLACE NOT AVAILABLE", Toast.LENGTH_SHORT).show();
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -458,7 +425,6 @@ public class EventActivity extends AppCompatActivity {
         });
 
         VolleySingleton.getInstance(EventActivity.this).addToRequestQueue(stringRequest);
-
     }
 
     private void apiCall(String strHouseId, String strPlaceId, String strDate, String strEndDate, String strEventDetails, String strRent) {

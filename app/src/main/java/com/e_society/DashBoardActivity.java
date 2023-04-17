@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.e_society.adapter.MyListAdapter;
+import com.e_society.display.AdminDisplayActivity;
 import com.e_society.display.EventDisplayActivity;
 import com.e_society.display.FeedbackDisplayActivity;
 import com.e_society.display.HouseDisplayActivity;
@@ -27,9 +28,9 @@ import java.util.ArrayList;
 public class DashBoardActivity extends AppCompatActivity {
 
     GridView gridView;
-    String strData[] = {"Role", "User", "Member", "Event", "Maintenance", "Master","Security", "FeedBack"
+    String strData[] = {"Role","Admin", "User", "Member", "Event", "Maintenance", "Master","Security", "FeedBack"
             , "NonMember", "House", "Place"};
-    int imgData[] = {R.drawable.role, R.drawable.user, R.drawable.member, R.drawable.event,
+    int imgData[] = {R.drawable.role,R.drawable.user, R.drawable.user, R.drawable.member, R.drawable.event,
             R.drawable.maintanence,R.drawable.maintanence, R.drawable.staff, R.drawable.ic_feedback, R.drawable.ic_nonmember, R.drawable.ic_house, R.drawable.place};
 
     ArrayList<LangModel> langModelArrayList;
@@ -56,42 +57,46 @@ public class DashBoardActivity extends AppCompatActivity {
                 if (i == 0) {
                     Intent intent = new Intent(DashBoardActivity.this, RoleDisplayActivity.class);
                     startActivity(intent);
-                } else if (i == 1) {
+                }else if (i == 1) {
+                    Intent intent = new Intent(DashBoardActivity.this, AdminDisplayActivity.class);
+                    startActivity(intent);
+                }
+                else if (i == 2) {
                     Intent intent = new Intent(DashBoardActivity.this, UserDisplayActivity.class);
                     startActivity(intent);
-                } else if (i == 2) {
+                } else if (i == 3) {
                     Intent intent = new Intent(DashBoardActivity.this, MemberDisplayActivity.class);
                     startActivity(intent);
 
-                } else if (i == 3) {
+                } else if (i == 4) {
                     Intent intent = new Intent(DashBoardActivity.this, EventDisplayActivity.class);
                     startActivity(intent);
 
-                } else if (i == 4) {
+                } else if (i == 5) {
                     Intent intent = new Intent(DashBoardActivity.this, MaintenanceDisplayActivity.class);
                     startActivity(intent);
 
-                }else if (i == 5) {
+                }else if (i == 6) {
                     Intent intent = new Intent(DashBoardActivity.this, MaintenanceMasterDisplayActivity.class);
                     startActivity(intent);
 
-                } else if (i == 6) {
+                } else if (i == 7) {
                     Intent intent = new Intent(DashBoardActivity.this, StaffDisplayActivity.class);
                     startActivity(intent);
 
-                } else if (i == 7) {
+                } else if (i == 8) {
                     Intent intent = new Intent(DashBoardActivity.this, FeedbackDisplayActivity.class);
                     startActivity(intent);
 
-                } else if (i == 8) {
+                } else if (i == 9) {
                     Intent intent = new Intent(DashBoardActivity.this, NonMemberDisplayActivity.class);
                     startActivity(intent);
 
-                } else if (i == 9) {
+                } else if (i == 10) {
                     Intent intent = new Intent(DashBoardActivity.this, HouseDisplayActivity.class);
                     startActivity(intent);
 
-                } else if (i == 10) {
+                } else if (i == 11) {
                     Intent intent = new Intent(DashBoardActivity.this, PlaceDisplayActivity.class);
                     startActivity(intent);
                 }
