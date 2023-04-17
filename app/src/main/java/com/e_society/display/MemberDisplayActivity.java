@@ -12,6 +12,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.e_society.LoginActivity;
 import com.e_society.MemberActivity;
 import com.e_society.adapter.MemberListAdapter;
 import com.e_society.model.MemberLangModel;
@@ -32,6 +33,7 @@ public class MemberDisplayActivity extends AppCompatActivity {
 
     ListView memberList;
     FloatingActionButton btnMemberAdd;
+    String name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,15 @@ public class MemberDisplayActivity extends AppCompatActivity {
         memberList = findViewById(R.id.member_listview);
 
         btnMemberAdd = findViewById(R.id.btn_add_member);
+
+        name= LoginActivity.getName();
+        Log.e(name,"name in member Display");
+        if(name.equals("user"))
+        {
+            btnMemberAdd.setEnabled(false);
+            btnMemberAdd.setVisibility(View.VISIBLE);
+        }
+
         btnMemberAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

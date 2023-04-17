@@ -19,18 +19,29 @@
         android:textSize="30sp"
         android:textStyle="bold" />
 
-
-    <EditText
-        android:id="@+id/edt_houseId"
+    <TextView
+        android:id="@+id/tv_houseId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:hint="HouseId"
         android:imeOptions="actionNext"
         android:singleLine="true"
         android:textColor="#000"
         android:textColorHint="#000"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:visibility="gone" />
+
+    <Spinner
+        android:id="@+id/spinner_member"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:popupBackground="#FFF0FF"
+        android:textColor="#000"
+        android:textSize="20sp"
+
+        />
+
 
     <EditText
         android:id="@+id/edt_memberName"

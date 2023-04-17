@@ -49,6 +49,7 @@ public class HouseDisplayActivity extends AppCompatActivity {
         HouseApi();
     }
 
+
     private void HouseApi() {
         ArrayList<HouseLangModel> arrayList = new ArrayList<HouseLangModel>();
 
@@ -66,6 +67,7 @@ public class HouseDisplayActivity extends AppCompatActivity {
 
                         JSONObject jsonObject2 = jsonObject1.getJSONObject("user");
                         String strUserId = jsonObject2.getString("_id");
+
 
                         String strHouseId = jsonObject1.getString("_id");
                         String strHouseDeets = jsonObject1.getString("houseDetails");

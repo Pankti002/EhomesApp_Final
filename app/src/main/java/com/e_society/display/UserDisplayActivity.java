@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.util.Log;
 
@@ -12,7 +13,10 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.e_society.LoginActivity;
+import com.e_society.adapter.MyRoleAdapter;
 import com.e_society.adapter.UserListAdapter;
+import com.e_society.model.RoleLangModel;
 import com.e_society.model.UserLangModel;
 import com.e_society.update.UserUpdateActivity;
 import com.e_society.utils.Utils;
@@ -31,7 +35,7 @@ public class UserDisplayActivity extends AppCompatActivity {
 
     ListView listview;
     FloatingActionButton btnAdd;
-
+    String name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +46,15 @@ public class UserDisplayActivity extends AppCompatActivity {
 
         //add button
         btnAdd = findViewById(R.id.btn_add);
+
+        name= LoginActivity.getName();
+        Log.e(name,"name in user Display");
+        if(name.equals("user"))
+        {
+            btnAdd.setEnabled(false);
+            btnAdd.setVisibility(View.VISIBLE);
+        }
+
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,7 +79,7 @@ public class UserDisplayActivity extends AppCompatActivity {
                         JSONObject jsonObject1 = jsonArray.getJSONObject(i);
                         JSONObject role = jsonObject1.getJSONObject("role");
                         String roleId = role.getString("_id");
-                        Log.e("roleId in display:", roleId);
+
                         String strUserId = jsonObject1.getString("_id");
                         String strFirstName = jsonObject1.getString("firstName");
                         String strLastName = jsonObject1.getString("lastName");
@@ -110,5 +123,7 @@ public class UserDisplayActivity extends AppCompatActivity {
         VolleySingleton.getInstance(UserDisplayActivity.this).addToRequestQueue(stringRequest);
 
     }
+
+
 
 }

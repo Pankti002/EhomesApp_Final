@@ -33,6 +33,7 @@ import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
 
+    private static String name;
     EditText edt_email, edt_password;
     Button btn_login;
     TextView tvSignup;
@@ -74,6 +75,8 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, "Enter Your Password", Toast.LENGTH_SHORT).show();
                 }else {
                     if (strInputEmail.equals("admin@gmail.com") && strInputPassword.equals("Admin@123")) {
+                        name="admin";
+                        loginApi("admin@gmail.com","Admin@123");
                         Intent i = new Intent(LoginActivity.this, DashBoardActivity.class);
                         startActivity(i);
                     } else {
@@ -102,6 +105,7 @@ public class LoginActivity extends AppCompatActivity {
 
                         if ((strEmail.equals(strInputEmail))&&(strPassword.equals(strInputPassword))) {
                             Log.e("checking", "email and password");
+                                name="user";
                                 loginApi(strInputEmail, strInputPassword);
                                 check=1;
                             }
@@ -149,6 +153,7 @@ public class LoginActivity extends AppCompatActivity {
 
                         if ((strEmail.equals(strInputEmail))&&(strPassword.equals(strInputPassword))) {
                             Log.e("checking", "email and password");
+                            name="security";
                             loginApi(strInputEmail, strInputPassword);
                             check=1;
                         }
@@ -205,6 +210,12 @@ public class LoginActivity extends AppCompatActivity {
 
         VolleySingleton.getInstance(this).addToRequestQueue(stringRequest);
 
+    }
+
+    public static String getName()
+    {
+        Log.e(name,"Name in getName");
+        return name;
     }
 }
 

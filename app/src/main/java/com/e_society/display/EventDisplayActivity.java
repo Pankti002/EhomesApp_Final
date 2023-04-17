@@ -65,6 +65,9 @@ public class EventDisplayActivity extends AppCompatActivity {
                     for (int i = 0; i < jsonArray.length(); i++) {
 
                         JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+
+//                        Log.e(jsonObject1.getJSONObject("house")+"","house Id ");
+
                         JSONObject jsonObject2 = jsonObject1.getJSONObject("house");
                         String houseId = jsonObject2.getString("_id");
 

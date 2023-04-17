@@ -50,7 +50,7 @@
 
                     <TextView
                         android:id="@+id/tv_visitorName"
-                        android:layout_width="100dp"
+                        android:layout_width="200dp"
                         android:layout_height="wrap_content"
                         android:text="VisitorName"
                         android:gravity="center"
@@ -62,7 +62,7 @@
 
                     <TextView
                         android:id="@+id/tv_arrivingTime"
-                        android:layout_width="100dp"
+                        android:layout_width="200dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:text="Arriving Time"
@@ -73,8 +73,20 @@
                         android:textSize="20dp" />
 
                     <TextView
+                        android:id="@+id/tv_date"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:text="Date"
+                        android:gravity="center"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/cell_shape"
+                        android:padding="5dp"
+                        android:textColor="@color/black"
+                        android:textSize="20dp" />
+
+                    <TextView
                         android:id="@+id/tv_visited"
-                        android:layout_width="118dp"
+                        android:layout_width="200dp"
                         android:paddingLeft="5dp"
                         android:paddingVertical="5dp"
                         android:layout_height="match_parent"
@@ -86,7 +98,7 @@
 
                     <TextView
                         android:id="@+id/tv_pickup"
-                        android:layout_width="45dp"
+                        android:layout_width="200dp"
                         android:layout_height="wrap_content"
                         android:text="PickUp"
                         android:gravity="center"
@@ -98,7 +110,7 @@
 
                     <TextView
                         android:id="@+id/tv_status"
-                        android:layout_width="100dp"
+                        android:layout_width="200dp"
                         android:layout_height="wrap_content"
                         android:text="Status"
                         android:gravity="center"
@@ -108,17 +120,7 @@
                         android:textColor="@color/black"
                         android:textSize="20dp" />
 
-                    <TextView
-                        android:id="@+id/tv_date"
-                        android:layout_width="125dp"
-                        android:layout_height="wrap_content"
-                        android:text="Date"
-                        android:gravity="center"
-                        android:layout_gravity="center_vertical"
-                        android:background="@drawable/cell_shape"
-                        android:padding="5dp"
-                        android:textColor="@color/black"
-                        android:textSize="20dp" />
+
 
                     <TextView
                         android:layout_width="120dp"

@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,18 +27,27 @@ import com.e_society.R;
 import com.e_society.display.FeedbackDisplayActivity;
 import com.e_society.display.PlaceDisplayActivity;
 import com.e_society.model.FeedbackLangModel;
+import com.e_society.model.HouseLangModel;
 import com.e_society.utils.Utils;
 import com.e_society.utils.VolleySingleton;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 public class FeedbackUpdateActivity extends AppCompatActivity {
 
 
-    EditText edt_feedbackHouseId,edt_giveFeedback,edt_acknowledgement;
-    TextView tv_feedbackDate;
+    EditText edt_giveFeedback,edt_acknowledgement;
+    TextView tv_feedbackDate,tv_houseId;
     ImageButton btn_feedbackDate;
     Button btn_feedback, btn_delFeedback;
+
+    String houseId;
+    Spinner spinnerHouse;
 
     private int date;
     private int month;
@@ -51,7 +61,7 @@ public class FeedbackUpdateActivity extends AppCompatActivity {
 
         Intent i = getIntent();
 
-        edt_feedbackHouseId = findViewById(R.id.edt_feedbackHouseId);
+        tv_houseId = findViewById(R.id.edt_feedbackHouseId);
         edt_giveFeedback= findViewById(R.id.edt_giveFeedback);
         edt_acknowledgement = findViewById(R.id.edt_acknowledgement);
         tv_feedbackDate = findViewById(R.id.tv_feedbackDate);
@@ -59,20 +69,24 @@ public class FeedbackUpdateActivity extends AppCompatActivity {
         btn_feedback = findViewById(R.id.btn_feedback);
         btn_delFeedback=findViewById(R.id.btn_delFeedback);
 
+        spinnerHouse=findViewById(R.id.spinner_house);
+        spinnerHouse.setVisibility(View.GONE);
+
 
         //    Log.e("MAINTENANCE_ID", String.valueOf(maintenanceId));
         String strFeedbackId = i.getStringExtra("FEEDBACK_ID");
-        String strHouseId = i.getStringExtra("HOUSE_ID");
+        houseId = i.getStringExtra("HOUSE_ID");
         String strFeedback = i.getStringExtra("FEEDBACK");
         String strDate = i.getStringExtra("DATE");
         String strAcknowledgement = i.getStringExtra("ACKNOWLEDGEMENT");
+
+        getHouseApi();
 
 
 
 
         //set text
         FeedbackLangModel feedbackLangModel = new FeedbackLangModel();
-        edt_feedbackHouseId.setText(strHouseId);
         edt_giveFeedback.setText(strFeedback);
         tv_feedbackDate.setText(strDate);
         edt_acknowledgement.setText(strAcknowledgement);
@@ -89,7 +103,6 @@ public class FeedbackUpdateActivity extends AppCompatActivity {
         btn_feedback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String strHouseId = edt_feedbackHouseId.getText().toString();
                 String strFeedback = edt_giveFeedback.getText().toString();
                 String strDate = tv_feedbackDate.getText().toString();
                 String strAcknowledgement = edt_acknowledgement.getText().toString();
@@ -122,7 +135,7 @@ public class FeedbackUpdateActivity extends AppCompatActivity {
                 else
                 {
                     Toast.makeText(FeedbackUpdateActivity.this,"Validation Successful",Toast.LENGTH_LONG).show();
-                    apiCall(strFeedbackId,strHouseId,strFeedback,strDate,strAcknowledgement );
+                    apiCall(strFeedbackId,houseId,strFeedback,strDate,strAcknowledgement );
                 }
 
             }
@@ -155,10 +168,43 @@ public class FeedbackUpdateActivity extends AppCompatActivity {
             }
         });
 
-
-
-
     }
+
+    private void getHouseApi() {
+        ArrayList<HouseLangModel> arrayList = new ArrayList<HouseLangModel>();
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Utils.HOUSE_URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.e("TAG", "onResponse:" + response);
+
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray jsonArray = jsonObject.getJSONArray("data");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+                        String strHouseId = jsonObject1.getString("_id");
+                        String strHouseDeets = jsonObject1.getString("houseDetails");
+
+                        if(houseId.equals(strHouseId))
+                        {
+                            tv_houseId.setText(strHouseDeets);
+                            tv_houseId.setVisibility(View.VISIBLE);
+                        }
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        VolleySingleton.getInstance(this).addToRequestQueue(stringRequest);
+    }
+
 
     private void deleteAPI(String id) {
         Log.e("TAG****", "deleteAPI Update " + id);

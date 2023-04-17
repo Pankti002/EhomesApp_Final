@@ -2,18 +2,25 @@ package com.e_society;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.AuthFailureError;
@@ -22,19 +29,28 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.e_society.display.MemberDisplayActivity;
+import com.e_society.model.HouseLangModel;
 import com.e_society.utils.Utils;
 import com.e_society.utils.VolleySingleton;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
 public class MemberActivity extends AppCompatActivity {
-    EditText edtHouseId, edtMemberName, edtAge, edtContactNo;
+    EditText edtMemberName, edtAge, edtContactNo;
     TextView tv_dateOfBirth, tvGender;
 
     ImageButton btnDate;
     Button addMember;
+
+    String houseId, strSelectedHouse;
+    Spinner spinnerHouse;
 
     RadioGroup radioGroup;
     RadioButton rbMale,rbFemale;
@@ -48,7 +64,6 @@ public class MemberActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_member);
 
-        edtHouseId = findViewById(R.id.edt_houseId);
         edtMemberName = findViewById(R.id.edt_memberName);
         edtAge = findViewById(R.id.edt_age);
 
@@ -57,6 +72,7 @@ public class MemberActivity extends AppCompatActivity {
         edtContactNo = findViewById(R.id.edt_contactNo);
         addMember = findViewById(R.id.btn_member);
         btnDate = findViewById(R.id.btn_memberDate);
+        spinnerHouse = findViewById(R.id.spinner_member);
 
         radioGroup=findViewById(R.id.radio_grp);
         rbMale=findViewById(R.id.radio_male);
@@ -67,7 +83,7 @@ public class MemberActivity extends AppCompatActivity {
         month = calendar.get(Calendar.MONTH);
         year = calendar.get(Calendar.YEAR);
 
-
+        HouseApi();
         //date
         btnDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,7 +103,6 @@ public class MemberActivity extends AppCompatActivity {
         addMember.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String houseId = edtHouseId.getText().toString();
                 String memberName = edtMemberName.getText().toString();
                 String age = edtAge.getText().toString();
                 String contactNumber = edtContactNo.getText().toString();
@@ -142,11 +157,130 @@ public class MemberActivity extends AppCompatActivity {
                     RadioButton radioButton = findViewById(id);
                     String strRadioButton = radioButton.getText().toString();
 
+                    Log.e(houseId+"","House Id");
+
                     Toast.makeText(MemberActivity.this,"Validation Successful",Toast.LENGTH_LONG).show();
                     apiCall(houseId, memberName,strRadioButton, age, contactNumber, dateOfBirth);
                 }
             }
         });
+    }
+
+    private void HouseApi() {
+        ArrayList<HouseLangModel> arrayList = new ArrayList<HouseLangModel>();
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Utils.HOUSE_URL, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Log.e("TAG", "onResponse:" + response);
+
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray jsonArray = jsonObject.getJSONArray("data");
+                    int j=1;
+                    String[] strHouses = new String[jsonArray.length()+1];
+                    strHouses[0]="Select Your house";
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+                        String strHouseId = jsonObject1.getString("_id");
+                        String strHouseDeets = jsonObject1.getString("houseDetails");
+
+                        strHouses[j]=strHouseDeets;
+                        j++;
+
+
+                    }
+                    ArrayAdapter<String> arrayAdapter = new
+                            ArrayAdapter<String>(MemberActivity.this, android.R.layout.simple_list_item_1, strHouses) {
+                                @Override
+                                public View getDropDownView(int position, @Nullable View convertView,
+                                                            @NonNull ViewGroup parent) {
+
+                                    TextView tvData = (TextView) super.getDropDownView(position, convertView, parent);
+                                    tvData.setTextColor(Color.BLACK);
+                                    tvData.setTextSize(20);
+                                    return tvData;
+                                }
+
+                            };
+                    spinnerHouse.setAdapter(arrayAdapter);
+
+                    spinnerHouse.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                            strSelectedHouse = strHouses[position];
+                            Log.e("selected user",strSelectedHouse);
+                            getHouseId();
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+
+                        }
+                    });
+
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+
+        VolleySingleton.getInstance(this).addToRequestQueue(stringRequest);
+    }
+
+    private void getHouseId() {
+        ArrayList<HouseLangModel> arrayList = new ArrayList<HouseLangModel>();
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Utils.HOUSE_URL, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Log.e("TAG", "onResponse:" + response);
+
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray jsonArray = jsonObject.getJSONArray("data");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+
+                        JSONObject jsonObject2 = jsonObject1.getJSONObject("user");
+                        String strUserId = jsonObject2.getString("_id");
+
+                        Log.e(strUserId+"user","UserId");
+
+                        String strHouseId = jsonObject1.getString("_id");
+                        String strHouseDeets = jsonObject1.getString("houseDetails");
+
+
+                        if(strHouseDeets.equals(strSelectedHouse))
+                        {
+                            Log.e("in get api",strSelectedHouse);
+                            houseId=strHouseId;
+                            Log.e(houseId,"House id in spinner");
+                        }
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+
+        VolleySingleton.getInstance(this).addToRequestQueue(stringRequest);
+
     }
 
 

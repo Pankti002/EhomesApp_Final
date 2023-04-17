@@ -10,6 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.e_society.LoginActivity;
 import com.e_society.R;
 import com.e_society.model.NonMemberLangModel;
 import com.e_society.model.PlaceLangModel;
@@ -46,20 +47,34 @@ public class NonMemberListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View view, ViewGroup parent) {
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        view = layoutInflater.inflate(R.layout.raw_list, null);
+        view = layoutInflater.inflate(R.layout.non_member_table, null);
 
-        TextView tvData = view.findViewById(R.id.tv_data);
-        tvData.setText(nonMemberLangModelArrayList.get(position).getId() + " " +
-                nonMemberLangModelArrayList.get(position).getNonMemberName() + " " +
-                nonMemberLangModelArrayList.get(position).getArrivingTime() + " " +
-                nonMemberLangModelArrayList.get(position).getIsVisited() + " " +
-                nonMemberLangModelArrayList.get(position).getPickup() + " " +
-                nonMemberLangModelArrayList.get(position).getDeliver());
+        TextView tvName, tvArrivingTime, tvDate,tvIsVisited, tvPickup, tvStatus;
+
+        tvName = view.findViewById(R.id.tv_name);
+        tvArrivingTime = view.findViewById(R.id.tvArrivingTime);
+        tvDate=view.findViewById(R.id.tvDate);
+        tvIsVisited = view.findViewById(R.id.tv_isVisited);
+        tvPickup = view.findViewById(R.id.tv_pickup);
+        tvStatus = view.findViewById(R.id.tv_status);
+
+
+        tvName.setText(nonMemberLangModelArrayList.get(position).getNonMemberName());
+        tvArrivingTime.setText(nonMemberLangModelArrayList.get(position).getArrivingTime());
+        tvDate.setText(nonMemberLangModelArrayList.get(position).getDate());
+        tvIsVisited.setText(nonMemberLangModelArrayList.get(position).getIsVisited());
+        tvPickup.setText(nonMemberLangModelArrayList.get(position).getPickup());
+        tvStatus.setText(nonMemberLangModelArrayList.get(position).getDeliver());
 
         ImageView imgEdit = view.findViewById(R.id.img_edit);
         ImageView imgDelete = view.findViewById(R.id.img_delete);
 
-
+        String name= LoginActivity.getName();
+        if(name.equals("user") || name.equals("security"))
+        {
+            imgEdit.setEnabled(false);
+            imgDelete.setEnabled(false);
+        }
         imgEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,6 +86,7 @@ public class NonMemberListAdapter extends BaseAdapter {
                 intent.putExtra("HOUSE_ID",nonMemberLangModelArrayList.get(position).getHouseId());
                 intent.putExtra("NAME", nonMemberLangModelArrayList.get(position).getNonMemberName());
                 intent.putExtra("ARRIVING_TIME", nonMemberLangModelArrayList.get(position).getArrivingTime());
+                intent.putExtra("DATE", nonMemberLangModelArrayList.get(position).getDate());
                 intent.putExtra("VISITED", nonMemberLangModelArrayList.get(position).getIsVisited());
                 intent.putExtra("PICKUP", nonMemberLangModelArrayList.get(position).getPickup());
                 intent.putExtra("DELIVER", nonMemberLangModelArrayList.get(position).getDeliver());
@@ -91,6 +107,7 @@ public class NonMemberListAdapter extends BaseAdapter {
                 intent.putExtra("HOUSE_ID",nonMemberLangModelArrayList.get(position).getHouseId());
                 intent.putExtra("NAME", nonMemberLangModelArrayList.get(position).getNonMemberName());
                 intent.putExtra("ARRIVING_TIME", nonMemberLangModelArrayList.get(position).getArrivingTime());
+                intent.putExtra("DATE", nonMemberLangModelArrayList.get(position).getDate());
                 intent.putExtra("VISITED", nonMemberLangModelArrayList.get(position).getIsVisited());
                 intent.putExtra("PICKUP", nonMemberLangModelArrayList.get(position).getPickup());
                 intent.putExtra("DELIVER", nonMemberLangModelArrayList.get(position).getDeliver());

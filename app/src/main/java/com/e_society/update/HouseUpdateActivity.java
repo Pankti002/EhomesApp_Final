@@ -24,6 +24,7 @@ import com.e_society.HouseActivity;
 import com.e_society.R;
 import com.e_society.display.HouseDisplayActivity;
 import com.e_society.display.MaintenanceDisplayActivity;
+import com.e_society.display.PlaceDisplayActivity;
 import com.e_society.model.HouseLangModel;
 import com.e_society.model.UserLangModel;
 import com.e_society.utils.Utils;
@@ -46,6 +47,11 @@ public class HouseUpdateActivity extends AppCompatActivity {
     String user;
     Spinner spinnerUsers;
 
+//    @Override
+//    public void onBackPressed() {
+//        Intent intent =new Intent(HouseUpdateActivity.this, PlaceDisplayActivity.class);
+//        startActivity(intent);
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

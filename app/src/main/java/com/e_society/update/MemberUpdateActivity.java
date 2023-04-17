@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,19 +27,29 @@ import com.android.volley.toolbox.StringRequest;
 import com.e_society.MemberActivity;
 import com.e_society.R;
 import com.e_society.display.MemberDisplayActivity;
+import com.e_society.model.HouseLangModel;
 import com.e_society.model.MemberLangModel;
 import com.e_society.utils.Utils;
 import com.e_society.utils.VolleySingleton;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class MemberUpdateActivity extends AppCompatActivity {
 
-    EditText edt_houseId, edt_memberName, edt_age, edt_contactNo;
-    TextView tv_dateOfBirth,tv_gender;
+    EditText edt_memberName, edt_age, edt_contactNo;
+    TextView tv_dateOfBirth,tv_gender, tv_house;
     ImageButton btn_memberDate;
     Button btn_member, btn_delete;
+
+    String houseId;
+    Spinner spinnerHouse;
+
 
     RadioGroup radioGroup;
     RadioButton rbMale,rbFemale;
@@ -56,7 +67,7 @@ public class MemberUpdateActivity extends AppCompatActivity {
 
         Intent i = getIntent();
 
-        edt_houseId = findViewById(R.id.edt_houseId);
+        tv_house = findViewById(R.id.tv_houseId);
         edt_memberName = findViewById(R.id.edt_memberName);
         edt_age = findViewById(R.id.edt_age);
         edt_contactNo = findViewById(R.id.edt_contactNo);
@@ -70,16 +81,18 @@ public class MemberUpdateActivity extends AppCompatActivity {
         rbMale=findViewById(R.id.radio_male);
         rbFemale=findViewById(R.id.radio_female);
 
+        spinnerHouse=findViewById(R.id.spinner_member);
+        spinnerHouse.setVisibility(View.GONE);
 
-        //    Log.e("MAINTENANCE_ID", String.valueOf(maintenanceId));
         String strMemberId = i.getStringExtra("MEMBER_ID");
-        String strHouseId = i.getStringExtra("HOUSE_ID");
+        houseId = i.getStringExtra("HOUSE_ID");
         String strMemberName = i.getStringExtra("MEMBER_NAME");
         String strAge = i.getStringExtra("AGE");
         String strGender=i.getStringExtra("GENDER");
         String strContactNo = i.getStringExtra("CONTACT_NUMBER");
         String strDateOfBirth = i.getStringExtra("DATE_OF_BIRTH");
 
+        getHouseApi();
 
         if (strGender.equals("Male")) {
             rbMale.setChecked(true);
@@ -89,7 +102,6 @@ public class MemberUpdateActivity extends AppCompatActivity {
 
         //set text
         MemberLangModel memberLangModel = new MemberLangModel();
-        edt_houseId.setText(strHouseId);
         edt_memberName.setText(strMemberName);
         tv_dateOfBirth.setText(strDateOfBirth);
         edt_age.setText(strAge);
@@ -109,7 +121,6 @@ public class MemberUpdateActivity extends AppCompatActivity {
             public void onClick(View v) {
 
 
-                String strHouseId = edt_houseId.getText().toString();
                 String strMemberName = edt_memberName.getText().toString();
                 String strAge = edt_age.getText().toString();
                 String strContactNo = edt_contactNo.getText().toString();
@@ -164,7 +175,7 @@ public class MemberUpdateActivity extends AppCompatActivity {
                 else
                 {
                     Toast.makeText(MemberUpdateActivity.this,"Validation Successful",Toast.LENGTH_LONG).show();
-                    apiCall(strMemberId, strHouseId, strMemberName, strAge, strContactNo, strDateOfBirth, strRadioButton);
+                    apiCall(strMemberId, houseId, strMemberName, strAge, strContactNo, strDateOfBirth, strRadioButton);
 
                 }
 
@@ -232,6 +243,45 @@ public class MemberUpdateActivity extends AppCompatActivity {
         VolleySingleton.getInstance(MemberUpdateActivity.this).addToRequestQueue(stringRequest);
 
 
+    }
+
+    private void getHouseApi() {
+        ArrayList<HouseLangModel> arrayList = new ArrayList<HouseLangModel>();
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Utils.HOUSE_URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.e("TAG", "onResponse:" + response);
+
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray jsonArray = jsonObject.getJSONArray("data");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+
+                        JSONObject jsonObject2 = jsonObject1.getJSONObject("user");
+                        String strUserId = jsonObject2.getString("_id");
+
+                        String strHouseId = jsonObject1.getString("_id");
+                        String strHouseDeets = jsonObject1.getString("houseDetails");
+
+                        if(houseId.equals(strHouseId))
+                        {
+                            tv_house.setText(strHouseDeets);
+                            tv_house.setVisibility(View.VISIBLE);
+                        }
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        VolleySingleton.getInstance(this).addToRequestQueue(stringRequest);
     }
 
     private void apiCall(String strMemberId, String strHouseId, String strMemberName, String strAge, String strDateOfBirth, String strContactNo, String strRadioButton) {

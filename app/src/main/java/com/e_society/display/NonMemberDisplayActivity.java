@@ -38,6 +38,7 @@ public class NonMemberDisplayActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_non_member_display);
         listview = findViewById(R.id.ls_nonMember_listview);
+
         //Update button
         btnAdd = findViewById(R.id.btn_add);
         btnAdd.setOnClickListener(new View.OnClickListener() {
@@ -57,26 +58,34 @@ public class NonMemberDisplayActivity extends AppCompatActivity {
             public void onResponse(String response) {
                 Log.e("TAG", "onResponse:" + response);
 
+
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     JSONArray jsonArray = jsonObject.getJSONArray("data");
                     for (int i = 0; i < jsonArray.length(); i++) {
 
                         JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+
                         JSONObject jsonObject2 = jsonObject1.getJSONObject("house");
                         String houseId = jsonObject2.getString("_id");
+
+                        Log.e(houseId,"house id in display");
 
                         String strNonMemberId = jsonObject1.getString("_id");
                         String strNonMemberName = jsonObject1.getString("name");
                         String strTime = jsonObject1.getString("arrivingTime");
+                        String strDate=jsonObject1.getString("date");
                         String strIsVisited = jsonObject1.getString("isVisited");
                         String strPickup = jsonObject1.getString("pickup");
                         String strDeliver = jsonObject1.getString("deliver");
 
+
                         NonMemberLangModel nonMemberLangModel = new NonMemberLangModel();
                         nonMemberLangModel.setId(strNonMemberId);
+                        nonMemberLangModel.setHouseId(houseId);
                         nonMemberLangModel.setNonMemberName(strNonMemberName);
                         nonMemberLangModel.setArrivingTime(strTime);
+                        nonMemberLangModel.setDate(strDate);
                         nonMemberLangModel.setIsVisited(strIsVisited);
                         nonMemberLangModel.setPickup(strPickup);
                         nonMemberLangModel.setDeliver(strDeliver);

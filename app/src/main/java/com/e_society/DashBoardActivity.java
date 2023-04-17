@@ -15,6 +15,7 @@ import com.e_society.display.HouseDisplayActivity;
 import com.e_society.display.MaintenanceDisplayActivity;
 import com.e_society.display.MaintenanceMasterDisplayActivity;
 import com.e_society.display.MemberDisplayActivity;
+import com.e_society.display.NonMemberDisplayActivity;
 import com.e_society.display.PlaceDisplayActivity;
 import com.e_society.display.RoleDisplayActivity;
 import com.e_society.display.StaffDisplayActivity;
@@ -26,7 +27,7 @@ import java.util.ArrayList;
 public class DashBoardActivity extends AppCompatActivity {
 
     GridView gridView;
-    String strData[] = {"Role", "User", "Member", "Event", "Maintenance", "Master","Staff", "FeedBack"
+    String strData[] = {"Role", "User", "Member", "Event", "Maintenance", "Master","Security", "FeedBack"
             , "NonMember", "House", "Place"};
     int imgData[] = {R.drawable.role, R.drawable.user, R.drawable.member, R.drawable.event,
             R.drawable.maintanence,R.drawable.maintanence, R.drawable.staff, R.drawable.ic_feedback, R.drawable.ic_nonmember, R.drawable.ic_house, R.drawable.place};
@@ -83,7 +84,7 @@ public class DashBoardActivity extends AppCompatActivity {
                     startActivity(intent);
 
                 } else if (i == 8) {
-                    Intent intent = new Intent(DashBoardActivity.this, NonMemberActivity.class);
+                    Intent intent = new Intent(DashBoardActivity.this, NonMemberDisplayActivity.class);
                     startActivity(intent);
 
                 } else if (i == 9) {

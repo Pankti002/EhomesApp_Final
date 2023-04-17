@@ -12,6 +12,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.e_society.LoginActivity;
 import com.e_society.MaintenanceActivity;
 import com.e_society.R;
 import com.e_society.adapter.MaintenanceListAdapter;
@@ -33,6 +34,8 @@ public class MaintenanceDisplayActivity extends AppCompatActivity {
     ListView listview;
     FloatingActionButton btnAdd;
 
+    String name;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +44,15 @@ public class MaintenanceDisplayActivity extends AppCompatActivity {
 
         //Update button
         btnAdd = findViewById(R.id.btn_add);
+
+        name= LoginActivity.getName();
+        Log.e(name,"name in user Display");
+        if(name.equals("user"))
+        {
+            btnAdd.setEnabled(false);
+            btnAdd.setVisibility(View.VISIBLE);
+        }
+
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -19,13 +19,24 @@
         android:textSize="30sp"
         android:textStyle="bold" />
 
-    <EditText
+    <Spinner
+        android:id="@+id/spinner_house"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:textColor="#000"
+        android:textSize="20sp"
+        android:popupBackground="#FFF0FF"
+
+        />
+
+    <TextView
         android:id="@+id/et_houseId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:hint="HouseId"
         android:imeOptions="actionNext"
+        android:visibility="gone"
         android:singleLine="true"
         android:textColor="#000"
         android:textColorHint="#000"
@@ -155,6 +166,17 @@
 
     </LinearLayout>
 
+    <CheckBox
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/cb_late"
+        android:layout_marginTop="10dp"
+        android:text="Late Fee"
+        android:textColor="#000"
+        android:textSize="20sp"
+        />
+
+
     <TextView
         android:id="@+id/tv_penalty"
         android:layout_width="match_parent"
@@ -164,6 +186,7 @@
         android:imeOptions="actionDone"
         android:inputType="number"
         android:singleLine="true"
+        android:visibility="gone"
         android:textColor="#000"
         android:textColorHint="#000"
         android:textSize="20sp" />

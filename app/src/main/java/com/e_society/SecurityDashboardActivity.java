@@ -9,6 +9,8 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.e_society.adapter.MyListAdapter;
+import com.e_society.display.NonMemberDisplayActivity;
+import com.e_society.display.StaffDisplayActivity;
 import com.e_society.model.LangModel;
 
 import java.util.ArrayList;
@@ -16,9 +18,9 @@ import java.util.ArrayList;
 public class SecurityDashboardActivity extends AppCompatActivity {
     GridView gridView;
 
-    String strData[] = {"Staff", "NonMember"};
+    String strData[] = {"NonMember"};
 
-    int imgData[] = {R.drawable.staff, R.drawable.ic_nonmember};
+    int imgData[] = {R.drawable.ic_nonmember};
 
     ArrayList<LangModel> langModelArrayList;
 
@@ -40,11 +42,8 @@ public class SecurityDashboardActivity extends AppCompatActivity {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                if (i == 0) {
-                    Intent intent = new Intent(SecurityDashboardActivity.this, StaffActivity.class);
-                    startActivity(intent);
-                } else if (i == 1) {
-                    Intent intent = new Intent(SecurityDashboardActivity.this, NonMemberActivity.class);
+                if (i == 1) {
+                    Intent intent = new Intent(SecurityDashboardActivity.this, NonMemberDisplayActivity.class);
                     startActivity(intent);
                 }
 

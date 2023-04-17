@@ -11,6 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.e_society.LoginActivity;
 import com.e_society.R;
 import com.e_society.model.FeedbackLangModel;
 import com.e_society.update.FeedbackUpdateActivity;
@@ -58,6 +59,13 @@ public class FeedbackListAdapter extends BaseAdapter{
         ImageView imgEdit = view.findViewById(R.id.img_edit);
         ImageView imgDelete = view.findViewById(R.id.img_delete);
 
+
+        String name= LoginActivity.getName();
+        if(name.equals("user"))
+        {
+            imgEdit.setEnabled(false);
+            imgDelete.setEnabled(false);
+        }
 
         imgEdit.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -16,6 +16,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -33,6 +35,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.e_society.adapter.MaintenanceMasterListAdapter;
 import com.e_society.display.MaintenanceDisplayActivity;
 import com.e_society.display.MaintenanceMasterDisplayActivity;
+import com.e_society.model.HouseLangModel;
 import com.e_society.model.MaintenanceMasterLangModel;
 import com.e_society.utils.Utils;
 import com.e_society.utils.VolleySingleton;
@@ -49,14 +52,17 @@ import java.util.Map;
 
 public class MaintenanceActivity extends AppCompatActivity {
 
-    EditText edtHouseId;
     TextView tvMaintenanceAmount, tvPenalty;
     Button btnMaintenance;
     String strMaintenanceMonth;
 
     String strMaintenanceAmount,strPenalty;
 
-//    RadioGroup radioGroup;
+    String strSelectedHouse,houseId;
+    Spinner spinnerHouse;
+
+    CheckBox cbLate;
+
     Spinner spinnerMonth;
     String strMonths[] = {"Select a Month", "January", "February", "March", "April", "May", "June", "July", "August", "September",
             "October", "November", "December"};
@@ -72,16 +78,17 @@ public class MaintenanceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maintanance);
 
-        edtHouseId = findViewById(R.id.et_houseId);
         tvMaintenanceAmount = findViewById(R.id.tv_amt);
         tvPenalty = findViewById(R.id.tv_penalty);
         btnMaintenance = findViewById(R.id.btn_maintenance);
+        cbLate=findViewById(R.id.cb_late);
 
         //spinner variable
         spinnerMonth = findViewById(R.id.spinner_month);
 
-//        //radio button
-//        radioGroup = findViewById(R.id.radio_grp);
+        spinnerHouse=findViewById(R.id.spinner_house);
+        DisplayHouseApi();
+
 
         //date variables
         tvDisDate = findViewById(R.id.tv_create);
@@ -98,24 +105,32 @@ public class MaintenanceActivity extends AppCompatActivity {
         year = calendar.get(Calendar.YEAR);
 
 
+
         getMasterApi();
 
-        Log.e(strMaintenanceAmount+"",strPenalty+"");
+        cbLate.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton btn, boolean b) {
+                if(btn.isChecked())
+                {
+                    tvPenalty.setVisibility(View.VISIBLE);
+                }
+                if(!(btn.isChecked()))
+                {
+                    strPenalty="0";
+                    tvPenalty.setVisibility(View.GONE);
+
+                }
+            }
+        });
 
         //Normal code
         btnMaintenance.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                String strHouseId=edtHouseId.getText().toString();
-
                 String strCreateDate = tvDisDate.getText().toString();
                 String strPaymentDate = tvPayDate.getText().toString();
                 String strLastDate = tvLastDate.getText().toString();
-//                int id = radioGroup.getCheckedRadioButtonId();
-//                RadioButton radioButton = findViewById(id);
-//
-//                String strRadioButton = radioButton.getText().toString();
 
                 if (strCreateDate.length() == 0) {
                     tvDisDate.requestFocus();
@@ -127,8 +142,13 @@ public class MaintenanceActivity extends AppCompatActivity {
                     tvLastDate.requestFocus();
                     tvLastDate.setError("FIELD CANNOT BE EMPTY");
                 }else {
+                    if(!(cbLate.isChecked()))
+                    {
+                        strPenalty="0";
+                    }
                     Toast.makeText(MaintenanceActivity.this, "Validation Successful", Toast.LENGTH_SHORT).show();
-                    apiCall(strHouseId, strCreateDate, strMaintenanceMonth, strMaintenanceAmount, strPaymentDate, strLastDate, strPenalty);
+
+                    apiCall(houseId, strCreateDate, strMaintenanceMonth, strMaintenanceAmount, strPaymentDate, strLastDate, strPenalty);
                 }
             }
         });
@@ -240,6 +260,114 @@ public class MaintenanceActivity extends AppCompatActivity {
 
     }
 
+
+    private void DisplayHouseApi() {
+        ArrayList<HouseLangModel> arrayList = new ArrayList<HouseLangModel>();
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Utils.HOUSE_URL, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Log.e("TAG", "onResponse:" + response);
+
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray jsonArray = jsonObject.getJSONArray("data");
+                    int j=1;
+                    String strHouses[]=new String[jsonArray.length()+1];
+                    strHouses[0]="Select you House";
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+
+                        JSONObject jsonObject2 = jsonObject1.getJSONObject("user");
+                        String strUserId = jsonObject2.getString("_id");
+
+                        String strHouseId = jsonObject1.getString("_id");
+                        String strHouseDeets = jsonObject1.getString("houseDetails");
+
+                        strHouses[j]=strHouseDeets;
+                        j++;
+                    }
+                    ArrayAdapter<String> arrayAdapter = new
+                            ArrayAdapter<String>(MaintenanceActivity.this, android.R.layout.simple_list_item_1, strHouses) {
+                                @Override
+                                public View getDropDownView(int position, @Nullable View convertView,
+                                                            @NonNull ViewGroup parent) {
+
+                                    TextView tvData = (TextView) super.getDropDownView(position, convertView, parent);
+                                    tvData.setTextColor(Color.BLACK);
+                                    tvData.setTextSize(20);
+                                    return tvData;
+                                }
+
+                            };
+                    spinnerHouse.setAdapter(arrayAdapter);
+
+                    spinnerHouse.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                            strSelectedHouse = strHouses[position];
+                            Log.e("selected user",strSelectedHouse);
+                            getHouseId();
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+
+                        }
+                    });
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+
+        VolleySingleton.getInstance(MaintenanceActivity.this).addToRequestQueue(stringRequest);
+
+    }
+    private void getHouseId() {
+        ArrayList<HouseLangModel> arrayList = new ArrayList<HouseLangModel>();
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Utils.HOUSE_URL, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Log.e("TAG", "onResponse:" + response);
+
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray jsonArray = jsonObject.getJSONArray("data");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+                        String strHouseId = jsonObject1.getString("_id");
+                        String strHouseDeets = jsonObject1.getString("houseDetails");
+
+                        if(strSelectedHouse.equals(strHouseDeets))
+                        {
+                            houseId=strHouseId;
+                        }
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+
+        VolleySingleton.getInstance(this).addToRequestQueue(stringRequest);
+    }
+
     private void getMasterApi() {
         ArrayList<MaintenanceMasterLangModel> arrayList = new ArrayList<MaintenanceMasterLangModel>();
 
@@ -297,7 +425,6 @@ public class MaintenanceActivity extends AppCompatActivity {
                 hashMap.put("creationDate", strCreateDate);
                 hashMap.put("month", strMaintenanceMonth);
                 hashMap.put("maintenanceAmount", strMaintenanceAmount);
-//                hashMap.put("maintenancePaid", strRadioButton);
                 hashMap.put("paymentDate", strPaymentDate);
                 hashMap.put("lastDate", strLastDate);
                 hashMap.put("penalty", strPenalty);

@@ -11,6 +11,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.text.format.Time;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,28 +27,35 @@ import com.e_society.R;
 import com.e_society.display.EventDisplayActivity;
 import com.e_society.display.MaintenanceDisplayActivity;
 import com.e_society.model.EventLangModel;
+import com.e_society.model.HouseLangModel;
+import com.e_society.model.PlaceLangModel;
 import com.e_society.utils.Utils;
 import com.e_society.utils.VolleySingleton;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 
 public class EventUpdateActivity extends AppCompatActivity {
 
-    EditText edt_eventDetail, edt_HouseId, edtPlaceId;
+    EditText edt_eventDetail;
+    TextView tv_HouseId, tv_PlaceId;
     Button btn_event, btnDeleteEvent;
     TextView tvDate, tvEndDate, tvRent;
     ImageButton btnDate, btnEndDate;
+
+    String houseId,placeId;
+    Spinner spinnerHouse, spinnerPlace;
 
     private int date;
     private int month;
     private int year;
     private String id;
-
-    public EventUpdateActivity() {
-    }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,21 +71,29 @@ public class EventUpdateActivity extends AppCompatActivity {
         tvDate = findViewById(R.id.tv_date);
         tvEndDate = findViewById(R.id.tv_eventEndDate);
         btnEndDate = findViewById(R.id.btn_endDate);
-        edt_HouseId = findViewById(R.id.edt_eHouseId);
-        edtPlaceId = findViewById(R.id.edt_ePlaceId);
+        tv_HouseId = findViewById(R.id.edt_HouseId);
+        tv_PlaceId = findViewById(R.id.edt_PlaceId);
         btnDeleteEvent = findViewById(R.id.btn_delete_event);
+
+        spinnerHouse=findViewById(R.id.spinner_house);
+        spinnerPlace=findViewById(R.id.spinner_place);
+        spinnerHouse.setVisibility(View.GONE);
+        spinnerPlace.setVisibility(View.GONE);
 
         String strEventDate = i.getStringExtra("EVENT_DATE");
         String strEventEndDate = i.getStringExtra("EVENT_END_DATE");
         String strEventDetails = i.getStringExtra("EVENT_DETAILS");
         String strRent = i.getStringExtra("RENT");
         String strEventId = i.getStringExtra("EVENT_ID");
-        String strHouseId = i.getStringExtra("HOUSE_ID");
-        String strPlaceId = i.getStringExtra("PLACE_ID");
+        houseId = i.getStringExtra("HOUSE_ID");
+        placeId = i.getStringExtra("PLACE_ID");
 
 
-        edt_HouseId.setText(strHouseId);
-        edtPlaceId.setText(strPlaceId);
+
+        getPlaceApi();
+        getHouseApi();
+
+
 
 
         //set text
@@ -182,6 +198,79 @@ public class EventUpdateActivity extends AppCompatActivity {
                 datePickerDialog.show();
             }
         });
+
+
+    }
+
+    private void getHouseApi() {
+        ArrayList<HouseLangModel> arrayList = new ArrayList<HouseLangModel>();
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Utils.HOUSE_URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.e("TAG", "onResponse:" + response);
+
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray jsonArray = jsonObject.getJSONArray("data");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+                        String strHouseId = jsonObject1.getString("_id");
+                        String strHouseDeets = jsonObject1.getString("houseDetails");
+
+                        if(houseId.equals(strHouseId))
+                        {
+                            tv_HouseId.setText(strHouseDeets);
+                            tv_HouseId.setVisibility(View.VISIBLE);
+                        }
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        VolleySingleton.getInstance(this).addToRequestQueue(stringRequest);
+    }
+
+    private void getPlaceApi() {
+        ArrayList<PlaceLangModel> arrayList = new ArrayList<PlaceLangModel>();
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Utils.PLACE_URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.e("TAG", "onResponse:" + response);
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray jsonArray = jsonObject.getJSONArray("data");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+                        String strPlaceId = jsonObject1.getString("_id");
+                        String strPlaceName = jsonObject1.getString("placeName");
+
+                        if(placeId.equals(strPlaceId))
+                        {
+                            tv_PlaceId.setText(strPlaceName);
+                            tv_PlaceId.setVisibility(View.VISIBLE);
+                        }
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+
+        VolleySingleton.getInstance(EventUpdateActivity.this).addToRequestQueue(stringRequest);
 
 
     }
