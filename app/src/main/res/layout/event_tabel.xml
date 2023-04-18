@@ -83,15 +83,6 @@
             android:orientation="horizontal">
             <ImageView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:id="@+id/img_edit"
-                android:background="@drawable/cell_shape"
-                android:padding="6dp"
-                android:src="@drawable/edit_clr"/>
-
-            <ImageView
-                android:layout_width="wrap_content"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:id="@+id/img_delete"

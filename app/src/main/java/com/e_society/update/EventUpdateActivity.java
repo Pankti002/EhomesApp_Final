@@ -114,44 +114,44 @@ public class EventUpdateActivity extends AppCompatActivity {
                 deleteAPI(strEventId);
             }
         });
-        btn_event.setText("Update Event");
-        btn_event.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                strDate = tvEndDate.getText().toString();
-                strEndDate = tvDate.getText().toString();
-                strDetails = edt_eventDetail.getText().toString();
-                rent = tvRent.getText().toString();
-
-                if(strEventDate.length()==0)
-                {
-                    tvDate.requestFocus();
-                    tvDate.setError("FIELD CANNOT BE EMPTY");
-                }
-                else if(strEventEndDate.length()==0)
-                {
-                    tvEndDate.requestFocus();
-                    tvEndDate.setError("FIELD CANNOT BE EMPTY");
-                }
-                else if(strEventDetails.length()==0)
-                {
-                    edt_eventDetail.requestFocus();
-                    edt_eventDetail.setError("FIELD CANNOT BE EMPTY");
-                }
-                else if(!strEventDetails.matches("[a-zA-Z ]+"))
-                {
-                    edt_eventDetail.requestFocus();
-                    edt_eventDetail.setError("ENTER ONLY ALPHABETICAL CHARACTER");
-                }
-                else{
-                    DateAPI(strEventDate,strEventEndDate,placeId);
-
-                }
-
-
-            }
-        });
+//        btn_event.setText("Update Event");
+//        btn_event.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                strDate = tvEndDate.getText().toString();
+//                strEndDate = tvDate.getText().toString();
+//                strDetails = edt_eventDetail.getText().toString();
+//                rent = tvRent.getText().toString();
+//
+//                if(strEventDate.length()==0)
+//                {
+//                    tvDate.requestFocus();
+//                    tvDate.setError("FIELD CANNOT BE EMPTY");
+//                }
+//                else if(strEventEndDate.length()==0)
+//                {
+//                    tvEndDate.requestFocus();
+//                    tvEndDate.setError("FIELD CANNOT BE EMPTY");
+//                }
+//                else if(strEventDetails.length()==0)
+//                {
+//                    edt_eventDetail.requestFocus();
+//                    edt_eventDetail.setError("FIELD CANNOT BE EMPTY");
+//                }
+//                else if(!strEventDetails.matches("[a-zA-Z ]+"))
+//                {
+//                    edt_eventDetail.requestFocus();
+//                    edt_eventDetail.setError("ENTER ONLY ALPHABETICAL CHARACTER");
+//                }
+//                else{
+//                    DateAPI(strEventDate,strEventEndDate,placeId);
+//
+//                }
+//
+//
+//            }
+//        });
 
 
         //date
@@ -200,38 +200,38 @@ public class EventUpdateActivity extends AppCompatActivity {
 
     }
 
-    private void DateAPI(String strDate, String strEndDate, String placeId) {
-        ArrayList<EventLangModel> arrayList = new ArrayList<EventLangModel>();
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, Utils.DATE_URL+"/"+ strDate +"/"+strEndDate+"/"+placeId, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
-                    String msg = jsonObject.getString("msg");
-                    Log.e(msg,"Message");
-                    if(msg.contains("No"))
-                    {
-                        Toast.makeText(EventUpdateActivity.this, "PLACE AVAILABLE", Toast.LENGTH_SHORT).show();
-                        Toast.makeText(EventUpdateActivity.this, "Validation Successful", Toast.LENGTH_SHORT).show();
-                        apiCall(houseId, placeId, strDate, strEndDate, strDetails, rent);
-                    }
-                    else if(msg.contains("Events")){
-                        Toast.makeText(EventUpdateActivity.this, "PLACE NOT AVAILABLE", Toast.LENGTH_SHORT).show();
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        });
-
-        VolleySingleton.getInstance(EventUpdateActivity.this).addToRequestQueue(stringRequest);
-    }
+//    private void DateAPI(String strDate, String strEndDate, String placeId) {
+//        ArrayList<EventLangModel> arrayList = new ArrayList<EventLangModel>();
+//        StringRequest stringRequest = new StringRequest(Request.Method.GET, Utils.DATE_URL+"/"+ strDate +"/"+strEndDate+"/"+placeId, new Response.Listener<String>() {
+//            @Override
+//            public void onResponse(String response) {
+//                try {
+//                    JSONObject jsonObject = new JSONObject(response);
+//                    String msg = jsonObject.getString("msg");
+//                    Log.e(msg,"Message");
+//                    if(msg.contains("No"))
+//                    {
+//                        Toast.makeText(EventUpdateActivity.this, "PLACE AVAILABLE", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(EventUpdateActivity.this, "Validation Successful", Toast.LENGTH_SHORT).show();
+//                        apiCall(houseId, placeId, strDate, strEndDate, strDetails, rent);
+//                    }
+//                    else if(msg.contains("Events")){
+//                        Toast.makeText(EventUpdateActivity.this, "PLACE NOT AVAILABLE", Toast.LENGTH_SHORT).show();
+//                    }
+//
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//
+//            }
+//        });
+//
+//        VolleySingleton.getInstance(EventUpdateActivity.this).addToRequestQueue(stringRequest);
+//    }
 
     private void getHouseApi() {
         ArrayList<HouseLangModel> arrayList = new ArrayList<HouseLangModel>();
@@ -337,37 +337,37 @@ public class EventUpdateActivity extends AppCompatActivity {
     }
 
 
-    private void apiCall(String strEventID, String placeId ,String strEventDate, String strEventEndDate, String strEventDetails, String strRent) {
-        StringRequest stringRequest = new StringRequest(Request.Method.PUT, Utils.EVENT_URL, new Response.Listener<String>() {
-            @Override
-
-            public void onResponse(String response) {
-                Log.e("api calling done", response);
-                Intent intent = new Intent(EventUpdateActivity.this, EventDisplayActivity.class);
-                startActivity(intent);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("error: ", String.valueOf(error));
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> hashMap = new HashMap<>();
-                Log.e("id in update map:", strEventID);
-                hashMap.put("eventId", strEventID);
-                hashMap.put("eventDate", strEventDate);
-                hashMap.put("eventEndDate", strEventEndDate);
-                hashMap.put("eventDetails", strEventDetails);
-                hashMap.put("rent", strRent);
-
-                return hashMap;
-
-
-            }
-        };
-        VolleySingleton.getInstance(EventUpdateActivity.this).addToRequestQueue(stringRequest);
-
-    }
+//    private void apiCall(String strEventID, String placeId ,String strEventDate, String strEventEndDate, String strEventDetails, String strRent) {
+//        StringRequest stringRequest = new StringRequest(Request.Method.PUT, Utils.EVENT_URL, new Response.Listener<String>() {
+//            @Override
+//
+//            public void onResponse(String response) {
+//                Log.e("api calling done", response);
+//                Intent intent = new Intent(EventUpdateActivity.this, EventDisplayActivity.class);
+//                startActivity(intent);
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                Log.e("error: ", String.valueOf(error));
+//            }
+//        }) {
+//            @Override
+//            protected Map<String, String> getParams() throws AuthFailureError {
+//                Map<String, String> hashMap = new HashMap<>();
+//                Log.e("id in update map:", strEventID);
+//                hashMap.put("eventId", strEventID);
+//                hashMap.put("eventDate", strEventDate);
+//                hashMap.put("eventEndDate", strEventEndDate);
+//                hashMap.put("eventDetails", strEventDetails);
+//                hashMap.put("rent", strRent);
+//
+//                return hashMap;
+//
+//
+//            }
+//        };
+//        VolleySingleton.getInstance(EventUpdateActivity.this).addToRequestQueue(stringRequest);
+//
+//    }
 }

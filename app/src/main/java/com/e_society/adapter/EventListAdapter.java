@@ -80,33 +80,13 @@ public class EventListAdapter extends BaseAdapter {
         tvRent.setText(eventLangModelArrayList.get(position).getRent());
 
 
-        ImageView imgEdit = view.findViewById(R.id.img_edit);
         ImageView imgDelete = view.findViewById(R.id.img_delete);
 
         String name = LoginActivity.getName();
         if (name.equals("user")) {
-            imgEdit.setEnabled(false);
             imgDelete.setEnabled(false);
         }
 
-        imgEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String id = eventLangModelArrayList.get(position).get_id();
-                Log.e("id in edit :", id);
-
-                Intent intent = new Intent(context, EventUpdateActivity.class);
-                intent.putExtra("EVENT_ID", id);
-                intent.putExtra("HOUSE_ID", eventLangModelArrayList.get(position).getHouse_id());
-                intent.putExtra("PLACE_ID", eventLangModelArrayList.get(position).getPlace_id());
-                intent.putExtra("EVENT_DATE", eventLangModelArrayList.get(position).getDate());
-                intent.putExtra("EVENT_END_DATE", eventLangModelArrayList.get(position).getEventDate());
-                intent.putExtra("EVENT_DETAILS", eventLangModelArrayList.get(position).getEventDetails());
-                intent.putExtra("RENT", eventLangModelArrayList.get(position).getRent());
-
-                context.startActivity(intent);
-            }
-        });
 
         imgDelete.setOnClickListener(new View.OnClickListener() {
             @Override
