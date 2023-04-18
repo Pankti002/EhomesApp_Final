@@ -12,9 +12,13 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.e_society.DashBoardActivity;
+import com.e_society.LoginActivity;
 import com.e_society.MaintenanceActivity;
 import com.e_society.NonMemberActivity;
 import com.e_society.R;
+import com.e_society.SecurityDashboardActivity;
+import com.e_society.UserDashBoardActivity;
 import com.e_society.adapter.MaintenanceListAdapter;
 import com.e_society.adapter.NonMemberListAdapter;
 import com.e_society.model.MaintenanceLangModel;
@@ -32,6 +36,25 @@ import java.util.ArrayList;
 public class NonMemberDisplayActivity extends AppCompatActivity {
     ListView listview;
     FloatingActionButton btnAdd;
+
+    String name;
+    @Override
+    public void onBackPressed() {
+        name= LoginActivity.getName();
+        Log.e(name,"name in user Display");
+        if(name.equals("user"))
+        {
+            Intent i = new Intent(NonMemberDisplayActivity.this, UserDashBoardActivity.class);
+            startActivity(i);
+        }
+        else if(name.equals("admin")) {
+            Intent i = new Intent(NonMemberDisplayActivity.this, DashBoardActivity.class);
+            startActivity(i);
+        } else if(name.equals("security")) {
+            Intent i = new Intent(NonMemberDisplayActivity.this, SecurityDashboardActivity.class);
+            startActivity(i);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +91,7 @@ public class NonMemberDisplayActivity extends AppCompatActivity {
 
                         JSONObject jsonObject2 = jsonObject1.getJSONObject("house");
                         String houseId = jsonObject2.getString("_id");
+                        String houseDetails=jsonObject2.getString("houseDetails");
 
                         Log.e(houseId,"house id in display");
 
@@ -83,6 +107,7 @@ public class NonMemberDisplayActivity extends AppCompatActivity {
                         NonMemberLangModel nonMemberLangModel = new NonMemberLangModel();
                         nonMemberLangModel.setId(strNonMemberId);
                         nonMemberLangModel.setHouseId(houseId);
+                        nonMemberLangModel.setHouseName(houseDetails);
                         nonMemberLangModel.setNonMemberName(strNonMemberName);
                         nonMemberLangModel.setArrivingTime(strTime);
                         nonMemberLangModel.setDate(strDate);

@@ -12,8 +12,11 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.e_society.DashBoardActivity;
+import com.e_society.LoginActivity;
 import com.e_society.PlaceActivity;
 import com.e_society.R;
+import com.e_society.UserDashBoardActivity;
 import com.e_society.adapter.MaintenanceMasterListAdapter;
 import com.e_society.adapter.PlaceListAdapter;
 import com.e_society.model.MaintenanceMasterLangModel;
@@ -31,6 +34,18 @@ import java.util.ArrayList;
 public class MaintenanceMasterDisplayActivity extends AppCompatActivity {
 
     ListView listview;
+    String name;
+
+
+    @Override
+    public void onBackPressed() {
+        name= LoginActivity.getName();
+        Log.e(name,"name in user Display");
+         if(name.equals("admin")) {
+            Intent i = new Intent(MaintenanceMasterDisplayActivity.this, DashBoardActivity.class);
+            startActivity(i);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

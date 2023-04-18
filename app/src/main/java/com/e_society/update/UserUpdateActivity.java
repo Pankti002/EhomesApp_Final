@@ -128,7 +128,7 @@ public class UserUpdateActivity extends AppCompatActivity {
             }
         });
 
-        btnUser.setText("Update Maintenance");
+        btnUser.setText("Update User");
         btnDeleteUser.setVisibility(View.VISIBLE);
         btnDeleteUser.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -192,6 +192,8 @@ public class UserUpdateActivity extends AppCompatActivity {
                 }
                 else {
                     Toast.makeText(UserUpdateActivity.this, "Validation Successful", Toast.LENGTH_LONG).show();
+                    Log.e(strFirstName+" "+strLastName+" "+strDate+" "+strAge,"");
+                    Log.e(strContactNo+" "+strEmail+" "+strPassword+" "+strRadioButton,"");
                     apiCall(userId, strRoleId, strFirstName, strLastName, strDate, strAge, strContactNo, strEmail, strPassword, strRadioButton);
                 }
             }

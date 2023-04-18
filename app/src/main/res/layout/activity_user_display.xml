@@ -47,7 +47,7 @@
 
                     <TextView
                         android:id="@+id/tv_firstName"
-                        android:layout_width="100dp"
+                        android:layout_width="200dp"
                         android:layout_height="wrap_content"
                         android:text="Firstname"
                         android:gravity="center"
@@ -59,7 +59,7 @@
 
                     <TextView
                         android:id="@+id/tv_lastName"
-                        android:layout_width="100dp"
+                        android:layout_width="200dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:text="Lastname"
@@ -71,7 +71,7 @@
 
                     <TextView
                         android:id="@+id/tv_DOB"
-                        android:layout_width="118dp"
+                        android:layout_width="200dp"
                         android:paddingLeft="5dp"
                         android:paddingVertical="5dp"
                         android:layout_height="match_parent"
@@ -83,7 +83,7 @@
 
                     <TextView
                         android:id="@+id/tv_Age"
-                        android:layout_width="45dp"
+                        android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:text="Age"
                         android:gravity="center"
@@ -107,7 +107,7 @@
 
                     <TextView
                         android:id="@+id/tv_Cnt"
-                        android:layout_width="125dp"
+                        android:layout_width="200dp"
                         android:layout_height="wrap_content"
                         android:text="Contact No"
                         android:gravity="center"
@@ -169,19 +169,5 @@
         </RelativeLayout>
 
     </HorizontalScrollView>
-
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btn_add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
-        android:src="@drawable/btn_clr"
-        />
 
 </RelativeLayout>

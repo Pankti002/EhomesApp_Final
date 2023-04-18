@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -55,6 +56,7 @@ public class MaintenanceUpdateActivity extends AppCompatActivity {
     String houseId;
     Spinner spinnerHouse;
 
+    CheckBox cbLate;
     Spinner spinnerMonth;
     String strMonths[] = {"Select a Month", "January", "February", "March", "April", "May", "June", "July", "August", "September",
             "October", "November", "December"};
@@ -82,6 +84,8 @@ public class MaintenanceUpdateActivity extends AppCompatActivity {
         tvLastDate = findViewById(R.id.tv_lastDate);
         btnDeleteMaintenance = findViewById(R.id.btn_delete_maintenance);
 
+        cbLate=findViewById(R.id.cb_late);
+        cbLate.setVisibility(View.GONE);
 
         spinnerHouse=findViewById(R.id.spinner_house);
         spinnerHouse.setVisibility(View.GONE);
@@ -197,17 +201,13 @@ public class MaintenanceUpdateActivity extends AppCompatActivity {
                         CharSequence strDate = null;
                         Time chosenDate = new Time();
                         chosenDate.set(dayOfMonth, month, year);
-                        Log.e("year: ", String.valueOf(year));
-                        Log.e("month: ", String.valueOf(month));
-                        Log.e("day: ", String.valueOf(dayOfMonth));
-
                         long dtDob = chosenDate.toMillis(true);
 
-                        strDate = DateFormat.format("yyyy/MM/dd", dtDob);
+                        strDate = DateFormat.format("yyyy-MM-dd", dtDob);
 
                         tvDisDate.setText(strDate);
                     }
-                }, date, month, year);
+                }, year, month, date );
                 datePickerDialog.show();
             }
         });
@@ -223,12 +223,12 @@ public class MaintenanceUpdateActivity extends AppCompatActivity {
                         chosenDate.set(dayOfMonth, month, year);
                         long dtDob = chosenDate.toMillis(true);
 
-                        strDate = DateFormat.format("yyyy/MM/dd", dtDob);
+                        strDate = DateFormat.format("yyyy-MM-dd", dtDob);
 
                         tvPayDate.setText(strDate);
 
                     }
-                }, date, month, year);
+                },year, month, date);
                 datePickerDialog.show();
             }
         });
@@ -244,12 +244,12 @@ public class MaintenanceUpdateActivity extends AppCompatActivity {
                         chosenDate.set(dayOfMonth, month, year);
                         long dtDob = chosenDate.toMillis(true);
 
-                        strDate = DateFormat.format("yyyy/MM/dd", dtDob);
+                        strDate = DateFormat.format("yyyy-MM-dd", dtDob);
 
                         tvLastDate.setText(strDate);
 
                     }
-                }, date, month, year);
+                }, year, month, date);
                 datePickerDialog.show();
             }
         });

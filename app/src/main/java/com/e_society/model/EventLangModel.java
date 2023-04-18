@@ -2,7 +2,7 @@ package com.e_society.model;
 
 public class EventLangModel {
 
-    String _id, house_id, place_id, date, eventDate, eventDetails, rent;
+    String _id, house_id,houseName, place_id,placeName, date, eventDate, eventDetails, rent;
 
     public String get_id() {
         return _id;
@@ -20,12 +20,28 @@ public class EventLangModel {
         this.house_id = house_id;
     }
 
+    public String getHouseName() {
+        return houseName;
+    }
+
+    public void setHouseName(String houseName) {
+        this.houseName = houseName;
+    }
+
     public String getPlace_id() {
         return place_id;
     }
 
     public void setPlace_id(String place_id) {
         this.place_id = place_id;
+    }
+
+    public String getPlaceName() {
+        return placeName;
+    }
+
+    public void setPlaceName(String placeName) {
+        this.placeName = placeName;
     }
 
     public String getDate() {

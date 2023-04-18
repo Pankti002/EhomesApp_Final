@@ -4,6 +4,8 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.format.DateFormat;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,7 +51,7 @@ public class MemberActivity extends AppCompatActivity {
     ImageButton btnDate;
     Button addMember;
 
-    String houseId, strSelectedHouse;
+    String strSelectedHouse,houseId ;
     Spinner spinnerHouse;
 
     RadioGroup radioGroup;
@@ -91,9 +93,16 @@ public class MemberActivity extends AppCompatActivity {
                 DatePickerDialog datePickerDialog = new DatePickerDialog(MemberActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        tv_dateOfBirth.setText(dayOfMonth + "-" + (month + 1) + "-" + year);
+                        CharSequence strDate = null;
+                        Time chosenDate = new Time();
+                        chosenDate.set(dayOfMonth, month, year);
+                        long dtDob = chosenDate.toMillis(true);
+
+                        strDate = DateFormat.format("yyyy-MM-dd", dtDob);
+
+                        tv_dateOfBirth.setText(strDate);
                     }
-                }, date, month, year);
+                }, year, month, date);
                 datePickerDialog.show();
 
             }
@@ -319,6 +328,4 @@ public class MemberActivity extends AppCompatActivity {
         VolleySingleton.getInstance(MemberActivity.this).addToRequestQueue(stringRequest);
 
     }
-
-
 }

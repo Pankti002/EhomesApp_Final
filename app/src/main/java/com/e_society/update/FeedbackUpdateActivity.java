@@ -36,6 +36,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 public class FeedbackUpdateActivity extends AppCompatActivity {
@@ -49,9 +50,7 @@ public class FeedbackUpdateActivity extends AppCompatActivity {
     String houseId;
     Spinner spinnerHouse;
 
-    private int date;
-    private int month;
-    private int year;
+
     private String id;
 
     @Override
@@ -68,6 +67,11 @@ public class FeedbackUpdateActivity extends AppCompatActivity {
         btn_feedbackDate= findViewById(R.id.btn_feedbackDate);
         btn_feedback = findViewById(R.id.btn_feedback);
         btn_delFeedback=findViewById(R.id.btn_delFeedback);
+
+        Calendar calendar = Calendar.getInstance();
+        int date = calendar.get(Calendar.DAY_OF_MONTH);
+        int month = calendar.get(Calendar.MONTH);
+        int year = calendar.get(Calendar.YEAR);
 
         spinnerHouse=findViewById(R.id.spinner_house);
         spinnerHouse.setVisibility(View.GONE);
@@ -159,11 +163,11 @@ public class FeedbackUpdateActivity extends AppCompatActivity {
 
                         long dtDob = chosenDate.toMillis(true);
 
-                        strDate = DateFormat.format("yyyy/MM/dd", dtDob);
+                        strDate = DateFormat.format("yyyy-MM-dd", dtDob);
 
                         tv_feedbackDate.setText(strDate);
                     }
-                }, date, month, year);
+                }, year,month,date);
                 datePickerDialog.show();
             }
         });

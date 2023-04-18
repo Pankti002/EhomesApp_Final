@@ -10,7 +10,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.e_society.EventActivity;
 import com.e_society.LoginActivity;
+import com.e_society.MaintenanceActivity;
 import com.e_society.update.MaintenanceUpdateActivity;
 import com.e_society.R;
 import com.e_society.model.MaintenanceLangModel;
@@ -51,7 +53,9 @@ public class MaintenanceListAdapter extends BaseAdapter {
         view = layoutInflater.inflate(R.layout.maintenance_table, null);
 
 
-        TextView tv_CreationDate, tvMonth,tvMaintenanceAmt,tvPDate,tvLDate,tv_penalty;
+
+        TextView tvHouse,tv_CreationDate, tvMonth,tvMaintenanceAmt,tvPDate,tvLDate,tv_penalty;
+        tvHouse=view.findViewById(R.id.tv_house);
         tv_CreationDate=view.findViewById(R.id.tv_creationDate);
         tvMonth=view.findViewById(R.id.tv_month);
         tvMaintenanceAmt=view.findViewById(R.id.tv_maintenanceAmt);
@@ -59,6 +63,8 @@ public class MaintenanceListAdapter extends BaseAdapter {
         tvLDate=view.findViewById(R.id.tv_lDate);
         tv_penalty=view.findViewById(R.id.tv_penalty);
 
+
+        tvHouse.setText(maintenanceLangModelArrayList.get(position).getHouseName());
         tv_CreationDate.setText(maintenanceLangModelArrayList.get(position).getCreationDate());
         tvMonth.setText(maintenanceLangModelArrayList.get(position).getMonth());
         tvMaintenanceAmt.setText(maintenanceLangModelArrayList.get(position).getMaintenanceAmount());

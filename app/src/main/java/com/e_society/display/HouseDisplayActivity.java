@@ -12,8 +12,11 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.e_society.DashBoardActivity;
 import com.e_society.HouseActivity;
+import com.e_society.LoginActivity;
 import com.e_society.R;
+import com.e_society.UserDashBoardActivity;
 import com.e_society.adapter.HouseListAdapter;
 import com.e_society.model.HouseLangModel;
 import com.e_society.utils.Utils;
@@ -31,6 +34,16 @@ public class HouseDisplayActivity extends AppCompatActivity {
 
     ListView listview;
     FloatingActionButton btnAdd;
+    String name;
+
+    @Override
+    public void onBackPressed() {
+        name= LoginActivity.getName();
+        if(name.equals("admin")) {
+            Intent i = new Intent(HouseDisplayActivity.this, DashBoardActivity.class);
+            startActivity(i);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

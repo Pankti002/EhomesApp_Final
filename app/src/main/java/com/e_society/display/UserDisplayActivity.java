@@ -13,7 +13,10 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.e_society.DashBoardActivity;
 import com.e_society.LoginActivity;
+import com.e_society.UserActivity;
+import com.e_society.UserDashBoardActivity;
 import com.e_society.adapter.MyRoleAdapter;
 import com.e_society.adapter.UserListAdapter;
 import com.e_society.model.RoleLangModel;
@@ -34,8 +37,22 @@ import java.util.ArrayList;
 public class UserDisplayActivity extends AppCompatActivity {
 
     ListView listview;
-    FloatingActionButton btnAdd;
     String name;
+
+    @Override
+    public void onBackPressed() {
+        name= LoginActivity.getName();
+        Log.e(name,"name in user Display");
+        if(name.equals("user"))
+        {
+            Intent i = new Intent(UserDisplayActivity.this, UserDashBoardActivity.class);
+            startActivity(i);
+        }
+        else if(name.equals("admin")) {
+            Intent i = new Intent(UserDisplayActivity.this, DashBoardActivity.class);
+            startActivity(i);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,24 +61,9 @@ public class UserDisplayActivity extends AppCompatActivity {
 
         listview = findViewById(R.id.ls_User_listview);
 
-        //add button
-        btnAdd = findViewById(R.id.btn_add);
-
         name= LoginActivity.getName();
         Log.e(name,"name in user Display");
-        if(name.equals("user"))
-        {
-            btnAdd.setEnabled(false);
-            btnAdd.setVisibility(View.VISIBLE);
-        }
 
-        btnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(UserDisplayActivity.this, UserUpdateActivity.class);
-                startActivity(intent);
-            }
-        });
         DisplayUserApi();
     }
 

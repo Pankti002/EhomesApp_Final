@@ -10,7 +10,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.e_society.EventActivity;
 import com.e_society.LoginActivity;
+import com.e_society.NonMemberActivity;
 import com.e_society.R;
 import com.e_society.model.NonMemberLangModel;
 import com.e_society.model.PlaceLangModel;
@@ -49,8 +51,9 @@ public class NonMemberListAdapter extends BaseAdapter {
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         view = layoutInflater.inflate(R.layout.non_member_table, null);
 
-        TextView tvName, tvArrivingTime, tvDate,tvIsVisited, tvPickup, tvStatus;
 
+        TextView tvHouse,tvName, tvArrivingTime, tvDate,tvIsVisited, tvPickup, tvStatus;
+        tvHouse=view.findViewById(R.id.tv_house);
         tvName = view.findViewById(R.id.tv_name);
         tvArrivingTime = view.findViewById(R.id.tvArrivingTime);
         tvDate=view.findViewById(R.id.tvDate);
@@ -58,7 +61,7 @@ public class NonMemberListAdapter extends BaseAdapter {
         tvPickup = view.findViewById(R.id.tv_pickup);
         tvStatus = view.findViewById(R.id.tv_status);
 
-
+        tvHouse.setText(nonMemberLangModelArrayList.get(position).getHouseName());
         tvName.setText(nonMemberLangModelArrayList.get(position).getNonMemberName());
         tvArrivingTime.setText(nonMemberLangModelArrayList.get(position).getArrivingTime());
         tvDate.setText(nonMemberLangModelArrayList.get(position).getDate());

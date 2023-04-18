@@ -37,6 +37,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -49,12 +50,9 @@ public class EventUpdateActivity extends AppCompatActivity {
     TextView tvDate, tvEndDate, tvRent;
     ImageButton btnDate, btnEndDate;
 
-    String houseId,placeId;
+    String houseId,placeId,strDate,strEndDate, strDetails,rent;
     Spinner spinnerHouse, spinnerPlace;
 
-    private int date;
-    private int month;
-    private int year;
     private String id;
 
     @Override
@@ -74,6 +72,11 @@ public class EventUpdateActivity extends AppCompatActivity {
         tv_HouseId = findViewById(R.id.edt_HouseId);
         tv_PlaceId = findViewById(R.id.edt_PlaceId);
         btnDeleteEvent = findViewById(R.id.btn_delete_event);
+
+        Calendar calendar = Calendar.getInstance();
+        int date = calendar.get(Calendar.DAY_OF_MONTH);
+        int month = calendar.get(Calendar.MONTH);
+        int year = calendar.get(Calendar.YEAR);
 
         spinnerHouse=findViewById(R.id.spinner_house);
         spinnerPlace=findViewById(R.id.spinner_place);
@@ -116,10 +119,10 @@ public class EventUpdateActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String strEventDate = tvEndDate.getText().toString();
-                String strEventEndDate = tvDate.getText().toString();
-                String strEventDetails = edt_eventDetail.getText().toString();
-                String strRent = tvRent.getText().toString();
+                strDate = tvEndDate.getText().toString();
+                strEndDate = tvDate.getText().toString();
+                strDetails = edt_eventDetail.getText().toString();
+                rent = tvRent.getText().toString();
 
                 if(strEventDate.length()==0)
                 {
@@ -142,8 +145,7 @@ public class EventUpdateActivity extends AppCompatActivity {
                     edt_eventDetail.setError("ENTER ONLY ALPHABETICAL CHARACTER");
                 }
                 else{
-                    Toast.makeText(EventUpdateActivity.this, "Validation Successful", Toast.LENGTH_SHORT).show();
-                    apiCall(strEventId, strEventDate, strEventEndDate, strEventDetails, strRent);
+                    DateAPI(strEventDate,strEventEndDate,placeId);
 
                 }
 
@@ -163,17 +165,13 @@ public class EventUpdateActivity extends AppCompatActivity {
                         CharSequence strDate = null;
                         Time chosenDate = new Time();
                         chosenDate.set(dayOfMonth, month, year);
-                        Log.e("year: ", String.valueOf(year));
-                        Log.e("month: ", String.valueOf(month));
-                        Log.e("day: ", String.valueOf(dayOfMonth));
-
                         long dtDob = chosenDate.toMillis(true);
 
-                        strDate = DateFormat.format("yyyy/MM/dd", dtDob);
+                        strDate = DateFormat.format("yyyy-MM-dd", dtDob);
 
                         tvDate.setText(strDate);
                     }
-                }, date, month, year);
+                },  year, month, date);
                 datePickerDialog.show();
             }
         });
@@ -184,22 +182,55 @@ public class EventUpdateActivity extends AppCompatActivity {
                 DatePickerDialog datePickerDialog = new DatePickerDialog(EventUpdateActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        CharSequence strDate = null;
+                        CharSequence strEndDate = null;
                         Time chosenDate = new Time();
                         chosenDate.set(dayOfMonth, month, year);
                         long dtDob = chosenDate.toMillis(true);
 
-                        strDate = DateFormat.format("yyyy/MM/dd", dtDob);
+                        strEndDate = DateFormat.format("yyyy-MM-dd", dtDob);
 
-                        tvEndDate.setText(strDate);
+                        tvEndDate.setText(strEndDate);
 
                     }
-                }, date, month, year);
+                },year, month, date);
                 datePickerDialog.show();
             }
         });
 
 
+    }
+
+    private void DateAPI(String strDate, String strEndDate, String placeId) {
+        ArrayList<EventLangModel> arrayList = new ArrayList<EventLangModel>();
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Utils.DATE_URL+"/"+ strDate +"/"+strEndDate+"/"+placeId, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    String msg = jsonObject.getString("msg");
+                    Log.e(msg,"Message");
+                    if(msg.contains("No"))
+                    {
+                        Toast.makeText(EventUpdateActivity.this, "PLACE AVAILABLE", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EventUpdateActivity.this, "Validation Successful", Toast.LENGTH_SHORT).show();
+                        apiCall(houseId, placeId, strDate, strEndDate, strDetails, rent);
+                    }
+                    else if(msg.contains("Events")){
+                        Toast.makeText(EventUpdateActivity.this, "PLACE NOT AVAILABLE", Toast.LENGTH_SHORT).show();
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+
+        VolleySingleton.getInstance(EventUpdateActivity.this).addToRequestQueue(stringRequest);
     }
 
     private void getHouseApi() {
@@ -306,7 +337,7 @@ public class EventUpdateActivity extends AppCompatActivity {
     }
 
 
-    private void apiCall(String strEventID, String strEventDate, String strEventEndDate, String strEventDetails, String strRent) {
+    private void apiCall(String strEventID, String placeId ,String strEventDate, String strEventEndDate, String strEventDetails, String strRent) {
         StringRequest stringRequest = new StringRequest(Request.Method.PUT, Utils.EVENT_URL, new Response.Listener<String>() {
             @Override
 

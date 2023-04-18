@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.media.metrics.Event;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -25,7 +26,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 
 public class UserDashBoardActivity extends AppCompatActivity {
-
+    String name;
     GridView gridView;
 
     String strData[] = {"User", "Member", "Event", "Maintenance", "Feedback", "NonMember"};
@@ -34,6 +35,16 @@ public class UserDashBoardActivity extends AppCompatActivity {
             R.drawable.maintanence, R.drawable.ic_feedback, R.drawable.ic_nonmember};
 
     ArrayList<LangModel> langModelArrayList;
+
+    @Override
+    public void onBackPressed() {
+        name= LoginActivity.getName();
+        Log.e(name,"name in user Display");
+        if(name.equals("user")) {
+            Intent i = new Intent(UserDashBoardActivity.this, LoginActivity.class);
+            startActivity(i);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -69,9 +69,6 @@ public class MaintenanceActivity extends AppCompatActivity {
 
     TextView tvDisDate, tvPayDate, tvLastDate;
     ImageButton btnDate, btnPayDate, btnLastDate;
-    private int date;
-    private int month;
-    private int year;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,10 +96,12 @@ public class MaintenanceActivity extends AppCompatActivity {
         btnPayDate = findViewById(R.id.btn_payDate);
         btnLastDate = findViewById(R.id.btn_lastDate);
 
+
         Calendar calendar = Calendar.getInstance();
-        date = calendar.get(Calendar.DAY_OF_MONTH);
-        month = calendar.get(Calendar.MONTH);
-        year = calendar.get(Calendar.YEAR);
+        int date = calendar.get(Calendar.DAY_OF_MONTH);
+        int month = calendar.get(Calendar.MONTH);
+        int year = calendar.get(Calendar.YEAR);
+
 
 
 
@@ -161,7 +160,7 @@ public class MaintenanceActivity extends AppCompatActivity {
                                                 @NonNull ViewGroup parent) {
 
                         TextView tvData = (TextView) super.getDropDownView(position, convertView, parent);
-                        tvData.setTextColor(Color.WHITE);
+                        tvData.setTextColor(Color.BLACK);
                         tvData.setTextSize(20);
                         return tvData;
                     }
@@ -193,13 +192,9 @@ public class MaintenanceActivity extends AppCompatActivity {
                         CharSequence strDate = null;
                         Time chosenDate = new Time();
                         chosenDate.set(dayOfMonth, month, year);
-                        Log.e("year: ", String.valueOf(year));
-                        Log.e("month: ", String.valueOf(month));
-                        Log.e("day: ", String.valueOf(dayOfMonth));
-
                         long dtDob = chosenDate.toMillis(true);
 
-                        strDate = DateFormat.format("yyyy/MM/dd", dtDob);
+                        strDate = DateFormat.format("yyyy-MM-dd", dtDob);
 
                         tvDisDate.setText(strDate);
                     }

@@ -10,11 +10,23 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.e_society.EventActivity;
 import com.e_society.LoginActivity;
 import com.e_society.R;
+import com.e_society.display.PlaceDisplayActivity;
 import com.e_society.model.EventLangModel;
+import com.e_society.model.PlaceLangModel;
 import com.e_society.update.EventUpdateActivity;
-import com.e_society.update.MaintenanceUpdateActivity;
+import com.e_society.utils.Utils;
+import com.e_society.utils.VolleySingleton;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -50,12 +62,18 @@ public class EventListAdapter extends BaseAdapter {
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         view = layoutInflater.inflate(R.layout.event_tabel, null);
 
-        TextView tvDate,tvEndDate,tvDetails,tvRent;
-        tvDate=view.findViewById(R.id.tv_eventDate);
-        tvEndDate=view.findViewById(R.id.tv_eventEndDate);
-        tvDetails=view.findViewById(R.id.tv_eventDetails);
-        tvRent=view.findViewById(R.id.tv_rent);
 
+
+        TextView tvPlace,tvHouse,tvDate, tvEndDate, tvDetails, tvRent;
+        tvHouse=view.findViewById(R.id.tv_house);
+        tvPlace=view.findViewById(R.id.tv_place);
+        tvDate = view.findViewById(R.id.tv_eventDate);
+        tvEndDate = view.findViewById(R.id.tv_eventEndDate);
+        tvDetails = view.findViewById(R.id.tv_eventDetails);
+        tvRent = view.findViewById(R.id.tv_rent);
+
+        tvHouse.setText(eventLangModelArrayList.get(position).getHouseName());
+        tvPlace.setText(eventLangModelArrayList.get(position).getPlaceName());
         tvDate.setText(eventLangModelArrayList.get(position).getDate());
         tvEndDate.setText(eventLangModelArrayList.get(position).getEventDate());
         tvDetails.setText(eventLangModelArrayList.get(position).getEventDetails());
@@ -65,9 +83,8 @@ public class EventListAdapter extends BaseAdapter {
         ImageView imgEdit = view.findViewById(R.id.img_edit);
         ImageView imgDelete = view.findViewById(R.id.img_delete);
 
-        String name= LoginActivity.getName();
-        if(name.equals("user"))
-        {
+        String name = LoginActivity.getName();
+        if (name.equals("user")) {
             imgEdit.setEnabled(false);
             imgDelete.setEnabled(false);
         }
@@ -112,5 +129,4 @@ public class EventListAdapter extends BaseAdapter {
 
         return view;
     }
-
 }

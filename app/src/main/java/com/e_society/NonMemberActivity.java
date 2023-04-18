@@ -54,7 +54,7 @@ public class NonMemberActivity extends AppCompatActivity {
     RadioGroup radioGroup, pickup_radioGroup, deliver_RadioGroup;
     Button btnAddNonMember;
 
-    String strSelectedHouse, houseId;
+    String strSelectedHouse,houseId;
     Spinner spinnerNonMember;
 
     private int hour;

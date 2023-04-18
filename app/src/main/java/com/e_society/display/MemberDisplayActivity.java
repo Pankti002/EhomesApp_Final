@@ -12,8 +12,10 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.e_society.DashBoardActivity;
 import com.e_society.LoginActivity;
 import com.e_society.MemberActivity;
+import com.e_society.UserDashBoardActivity;
 import com.e_society.adapter.MemberListAdapter;
 import com.e_society.model.MemberLangModel;
 import com.e_society.utils.Utils;
@@ -34,6 +36,21 @@ public class MemberDisplayActivity extends AppCompatActivity {
     ListView memberList;
     FloatingActionButton btnMemberAdd;
     String name;
+
+    @Override
+    public void onBackPressed() {
+        name= LoginActivity.getName();
+        Log.e(name,"name in user Display");
+        if(name.equals("user"))
+        {
+            Intent i = new Intent(MemberDisplayActivity.this, UserDashBoardActivity.class);
+            startActivity(i);
+        }
+        else if(name.equals("admin")) {
+            Intent i = new Intent(MemberDisplayActivity.this, DashBoardActivity.class);
+            startActivity(i);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +94,7 @@ public class MemberDisplayActivity extends AppCompatActivity {
                         JSONObject jsonObject1 = jsonArray.getJSONObject(i);
                         JSONObject jsonObject2 = jsonObject1.getJSONObject("house");
                         String strHouseId = jsonObject2.getString("_id");
+                        String houseDetails=jsonObject2.getString("houseDetails");
 
                         String strMemberId = jsonObject1.getString("_id");
                         String strName = jsonObject1.getString("memberName");
@@ -88,6 +106,7 @@ public class MemberDisplayActivity extends AppCompatActivity {
                         MemberLangModel memberLangModel = new MemberLangModel();
                         memberLangModel.set_id(strMemberId);
                         memberLangModel.setHouseId(strHouseId);
+                        memberLangModel.setHouseName(houseDetails);
                         memberLangModel.setMemberName(strName);
                         memberLangModel.setDateOfBirth(strDate);
                         memberLangModel.setAge(strAge);

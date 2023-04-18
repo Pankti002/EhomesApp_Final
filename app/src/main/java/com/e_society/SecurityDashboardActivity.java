@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -16,6 +17,7 @@ import com.e_society.model.LangModel;
 import java.util.ArrayList;
 
 public class SecurityDashboardActivity extends AppCompatActivity {
+    String name;
     GridView gridView;
 
     String strData[] = {"NonMember"};
@@ -23,6 +25,16 @@ public class SecurityDashboardActivity extends AppCompatActivity {
     int imgData[] = {R.drawable.ic_nonmember};
 
     ArrayList<LangModel> langModelArrayList;
+
+    @Override
+    public void onBackPressed() {
+        name= LoginActivity.getName();
+        Log.e(name,"name in user Display");
+        if(name.equals("security")) {
+            Intent i = new Intent(SecurityDashboardActivity.this, LoginActivity.class);
+            startActivity(i);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

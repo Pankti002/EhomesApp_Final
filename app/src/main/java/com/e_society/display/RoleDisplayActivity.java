@@ -11,6 +11,8 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.e_society.DashBoardActivity;
+import com.e_society.LoginActivity;
 import com.e_society.R;
 import com.e_society.RoleActivity;
 import com.e_society.adapter.MyRoleAdapter;
@@ -28,6 +30,16 @@ import java.util.ArrayList;
 public class RoleDisplayActivity extends AppCompatActivity {
     ListView listView;
     FloatingActionButton btnAdd;
+    String name;
+
+    @Override
+    public void onBackPressed() {
+        name= LoginActivity.getName();
+        if(name.equals("admin")) {
+            Intent i = new Intent(RoleDisplayActivity.this, DashBoardActivity.class);
+            startActivity(i);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -28,6 +28,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.e_society.adapter.EventListAdapter;
 import com.e_society.adapter.HouseListAdapter;
 import com.e_society.adapter.PlaceListAdapter;
 import com.e_society.display.EventDisplayActivity;
@@ -55,7 +56,7 @@ public class EventActivity extends AppCompatActivity {
     TextView tvDate, tvEndDate, tvRent;
     ImageButton btnDate, btnEndDate;
 
-    String strSelectedPlace,strSelectedHouse;
+    String strSelectedPlace, strSelectedHouse;
     String houseId,placeId, strDate, strEndDate, strEventDetails, strRent;
 
     Spinner spinnerHouse, spinnerPlace;
@@ -111,7 +112,6 @@ public class EventActivity extends AppCompatActivity {
         btnEndDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 DatePickerDialog datePickerDialog = new DatePickerDialog(EventActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -270,6 +270,8 @@ public class EventActivity extends AppCompatActivity {
                         {
                             placeId=strPlaceId;
                             tvRent.setText(strRent);
+
+
                         }
                     }
 
@@ -402,7 +404,7 @@ public class EventActivity extends AppCompatActivity {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     String msg = jsonObject.getString("msg");
-                    Log.e(msg,"MEssage");
+                    Log.e(msg,"Message");
                     if(msg.contains("No"))
                     {
                         Toast.makeText(EventActivity.this, "PLACE AVAILABLE", Toast.LENGTH_SHORT).show();

@@ -1,7 +1,7 @@
 package com.e_society.model;
 
 public class MemberLangModel {
-    String _id, houseId, memberName, dateOfBirth, age, gender, contactNo;
+    String _id, houseId,houseName, memberName, dateOfBirth, age, gender, contactNo;
 
     public String get_id() {
         return _id;
@@ -17,6 +17,14 @@ public class MemberLangModel {
 
     public void setHouseId(String houseId) {
         this.houseId = houseId;
+    }
+
+    public String getHouseName() {
+        return houseName;
+    }
+
+    public void setHouseName(String houseName) {
+        this.houseName = houseName;
     }
 
     public String getMemberName() {

@@ -53,7 +53,7 @@ public class FeedbackActivity extends AppCompatActivity {
     ImageButton btn_feedbackDate;
     Button btn_feedback;
 
-    String strSelectedHouse,houseId;
+    String strSelectedHouse, houseId;
     Spinner spinnerHouse;
 
 
@@ -290,5 +290,4 @@ public class FeedbackActivity extends AppCompatActivity {
         VolleySingleton.getInstance(FeedbackActivity.this).addToRequestQueue(stringRequest);
 
     }
-
 }

@@ -1,7 +1,7 @@
 package com.e_society.model;
 
 public class FeedbackLangModel {
-    String _id,HouseId,date,Feedback,acknowledgement;
+    String _id,HouseId,houseName,date,Feedback,acknowledgement;
 
     public String get_id() {
         return _id;
@@ -17,6 +17,14 @@ public class FeedbackLangModel {
 
     public void setHouseId(String houseId) {
         HouseId = houseId;
+    }
+
+    public String getHouseName() {
+        return houseName;
+    }
+
+    public void setHouseName(String houseName) {
+        this.houseName = houseName;
     }
 
     public String getDate() {

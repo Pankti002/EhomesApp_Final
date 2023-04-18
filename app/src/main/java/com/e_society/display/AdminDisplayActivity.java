@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 
@@ -13,8 +14,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.e_society.AddAdminActivity;
+import com.e_society.DashBoardActivity;
+import com.e_society.LoginActivity;
 import com.e_society.R;
 import com.e_society.RoleActivity;
+import com.e_society.UserDashBoardActivity;
 import com.e_society.adapter.AdminListAdapter;
 import com.e_society.adapter.MyRoleAdapter;
 import com.e_society.model.AdminLangModel;
@@ -33,6 +37,16 @@ public class AdminDisplayActivity extends AppCompatActivity {
 
     ListView listview;
     FloatingActionButton btnAdd;
+    String name;
+
+    @Override
+    public void onBackPressed() {
+        name= LoginActivity.getName();
+        if(name.equals("admin")) {
+            Intent i = new Intent(AdminDisplayActivity.this, DashBoardActivity.class);
+            startActivity(i);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

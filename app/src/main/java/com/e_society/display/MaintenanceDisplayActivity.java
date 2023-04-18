@@ -12,9 +12,11 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.e_society.DashBoardActivity;
 import com.e_society.LoginActivity;
 import com.e_society.MaintenanceActivity;
 import com.e_society.R;
+import com.e_society.UserDashBoardActivity;
 import com.e_society.adapter.MaintenanceListAdapter;
 import com.e_society.utils.Utils;
 import com.e_society.utils.VolleySingleton;
@@ -35,6 +37,21 @@ public class MaintenanceDisplayActivity extends AppCompatActivity {
     FloatingActionButton btnAdd;
 
     String name;
+
+    @Override
+    public void onBackPressed() {
+        name= LoginActivity.getName();
+        Log.e(name,"name in user Display");
+        if(name.equals("user"))
+        {
+            Intent i = new Intent(MaintenanceDisplayActivity.this, UserDashBoardActivity.class);
+            startActivity(i);
+        }
+        else if(name.equals("admin")) {
+            Intent i = new Intent(MaintenanceDisplayActivity.this, DashBoardActivity.class);
+            startActivity(i);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +96,7 @@ public class MaintenanceDisplayActivity extends AppCompatActivity {
                         JSONObject jsonObject1 = jsonArray.getJSONObject(i);
                         JSONObject jsonObject2 = jsonObject1.getJSONObject("house");
                         String houseId = jsonObject2.getString("_id");
+                        String houseDetails=jsonObject2.getString("houseDetails");
 
                         String strMaintenanceId = jsonObject1.getString("_id");
                         String strCreationDate = jsonObject1.getString("creationDate");
@@ -93,6 +111,7 @@ public class MaintenanceDisplayActivity extends AppCompatActivity {
                         maintenanceLangModel.setCreationDate(strCreationDate);
                         maintenanceLangModel.setMonth(strMonth);
                         maintenanceLangModel.setHouse(houseId);
+                        maintenanceLangModel.setHouseName(houseDetails);
                         maintenanceLangModel.setMaintenanceAmount(strMaintenanceAmount);
                         maintenanceLangModel.setPaymentDate(strPayDate);
                         maintenanceLangModel.setLastDate(strLastDate);

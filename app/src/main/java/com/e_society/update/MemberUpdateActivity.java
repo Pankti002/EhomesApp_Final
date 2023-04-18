@@ -37,6 +37,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -54,10 +55,6 @@ public class MemberUpdateActivity extends AppCompatActivity {
     RadioGroup radioGroup;
     RadioButton rbMale,rbFemale;
 
-
-    private int date;
-    private int month;
-    private int year;
     private String id;
 
     @Override
@@ -76,6 +73,11 @@ public class MemberUpdateActivity extends AppCompatActivity {
         btn_memberDate = findViewById(R.id.btn_memberDate);
         btn_member = findViewById(R.id.btn_member);
         btn_delete = findViewById(R.id.btn_delete_member);
+
+        Calendar calendar = Calendar.getInstance();
+        int date = calendar.get(Calendar.DAY_OF_MONTH);
+        int month = calendar.get(Calendar.MONTH);
+        int year = calendar.get(Calendar.YEAR);
 
         radioGroup = findViewById(R.id.radio_grp);
         rbMale=findViewById(R.id.radio_male);
@@ -189,24 +191,18 @@ public class MemberUpdateActivity extends AppCompatActivity {
         btn_memberDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 DatePickerDialog datePickerDialog = new DatePickerDialog(MemberUpdateActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         CharSequence strDate = null;
                         Time chosenDate = new Time();
                         chosenDate.set(dayOfMonth, month, year);
-                        Log.e("year: ", String.valueOf(year));
-                        Log.e("month: ", String.valueOf(month));
-                        Log.e("day: ", String.valueOf(dayOfMonth));
-
                         long dtDob = chosenDate.toMillis(true);
 
-                        strDate = DateFormat.format("yyyy/MM/dd", dtDob);
-
+                        strDate = DateFormat.format("yyyy-MM-dd", dtDob);
                         tv_dateOfBirth.setText(strDate);
                     }
-                }, date, month, year);
+                }, year, month, date);
                 datePickerDialog.show();
             }
         });

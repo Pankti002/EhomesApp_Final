@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -27,6 +28,7 @@ import java.util.ArrayList;
 
 public class DashBoardActivity extends AppCompatActivity {
 
+    String name;
     GridView gridView;
     String strData[] = {"Role","Admin", "User", "Member", "Event", "Maintenance", "Master","Security", "FeedBack"
             , "NonMember", "House", "Place"};
@@ -34,6 +36,16 @@ public class DashBoardActivity extends AppCompatActivity {
             R.drawable.maintanence,R.drawable.maintanence, R.drawable.staff, R.drawable.ic_feedback, R.drawable.ic_nonmember, R.drawable.ic_house, R.drawable.place};
 
     ArrayList<LangModel> langModelArrayList;
+
+    @Override
+    public void onBackPressed() {
+        name= LoginActivity.getName();
+        Log.e(name,"name in user Display");
+       if(name.equals("admin")) {
+            Intent i = new Intent(DashBoardActivity.this, LoginActivity.class);
+            startActivity(i);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

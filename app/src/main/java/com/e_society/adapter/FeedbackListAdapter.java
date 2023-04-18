@@ -11,6 +11,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.e_society.EventActivity;
+import com.e_society.FeedbackActivity;
 import com.e_society.LoginActivity;
 import com.e_society.R;
 import com.e_society.model.FeedbackLangModel;
@@ -46,11 +48,14 @@ public class FeedbackListAdapter extends BaseAdapter{
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         view = layoutInflater.inflate(R.layout.feedback_table, null);
 
-        TextView tvDate,tvFeedback,tvAck;
+
+        TextView tvHouse,tvDate,tvFeedback,tvAck;
+        tvHouse=view.findViewById(R.id.tv_house);
         tvDate=view.findViewById(R.id.tv_feedbackDate);
         tvFeedback=view.findViewById(R.id.tv_feedback);
         tvAck=view.findViewById(R.id.tv_acknowledgement);
 
+        tvHouse.setText(feedbackLangModelArrayList.get(position).getHouseName());
         tvDate.setText(feedbackLangModelArrayList.get(position).getDate());
         tvFeedback.setText(feedbackLangModelArrayList.get(position).getFeedback());
         tvAck.setText(feedbackLangModelArrayList.get(position).getAcknowledgement());
@@ -96,8 +101,8 @@ public class FeedbackListAdapter extends BaseAdapter{
 
 
                 Intent intent = new Intent(context, FeedbackUpdateActivity.class);
-                intent.putExtra("FEEDBACK_ID", id1);
-                intent.putExtra("FEEDBACK_HOUSE", feedbackLangModelArrayList.get(position).getHouseId());
+                intent.putExtra("FEEDBACK_ID",id1);
+                intent.putExtra("HOUSE_ID",feedbackLangModelArrayList.get(position).getHouseId());
                 intent.putExtra("DATE", feedbackLangModelArrayList.get(position).getDate());
                 intent.putExtra("FEEDBACK", feedbackLangModelArrayList.get(position).getFeedback());
                 intent.putExtra("ACKNOWLEDGEMENT", feedbackLangModelArrayList.get(position).getAcknowledgement());

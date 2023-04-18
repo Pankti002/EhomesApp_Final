@@ -2,7 +2,7 @@ package com.e_society.model;
 
 public class MaintenanceLangModel {
 
-    String _id, house, maintenanceAmount, creationDate, paymentDate, lastDate, penalty, maintenancePaid, month;
+    String _id, house,houseName, maintenanceAmount, creationDate, paymentDate, lastDate, penalty, maintenancePaid, month;
 
     public String get_id() {
         return _id;
@@ -18,6 +18,14 @@ public class MaintenanceLangModel {
 
     public void setHouse(String house) {
         this.house = house;
+    }
+
+    public String getHouseName() {
+        return houseName;
+    }
+
+    public void setHouseName(String houseName) {
+        this.houseName = houseName;
     }
 
     public String getMaintenanceAmount() {
